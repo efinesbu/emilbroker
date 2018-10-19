@@ -1,0 +1,62 @@
+<style>
+body {font-family: Arial, Helvetica, sans-serif;
+	  background-image:url(https://www.finecomputing.com/media/images/cityview_1.jpg);
+	  background-size: contain;
+	  opacity: 0.8;
+	 }
+* {box-sizing: border-box;}
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+	width: 75%;
+	margin: auto;
+}
+div.center{
+	text-align:center;
+}
+.topnav {
+	background-color:#777777;
+	overflow: hidden;
+	display: inline-block;
+	}
+	
+.bottomnav {
+	background-color:#fafafa;
+	overflow: hidden;
+	width: 100%;
+	text-align: center;
+	margin: 0;	
+	}
+.bottomnav li {
+    display: inline-block;
+    font-size: 20px;
+    padding: 20px;
+}	
+.main {
+	color: black;
+	background-color: #f5f5f5;
+	opacity: 0.9;
+}
+</style>
