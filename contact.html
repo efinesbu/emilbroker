@@ -26,9 +26,7 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 <meta name="keywords" content="Midtown, Midtown Manhattan, Chelsea,Hudson Yards,Hudson,Yards,Central, park,lower">
 <meta name="keywords" content="Central, park,NOLO, development,for sale, residential, properties, investment, sale, buy, foreclosures,public">
 <title>
-
   Private NYC OMRE Advisors
-
 </title>
 </head>
 <body class="home">
@@ -62,6 +60,33 @@ We have access to some of the Best off market properties available in the New Yo
 We would love to work with you and help you with your next property acquisition or disposition.
 We will be honored to work hard representing your best interests.
 </p>
+</div>
+
+<div class="container">
+  <form action="sendMail.php", method="post">
+
+    <label for="fname">First Name</label>
+    <input id="fname" name="firstname" placeholder="Your name.." type="text">
+
+    <label for="lname">Last Name</label>
+    <input id="lname" name="lastname" placeholder="Your last name.." type="text">
+
+    <label for="country">Country</label>
+    <select id="country" name="country">
+      <option value="australia" selected="selected">Australia</option>
+      <option value="canada">Canada</option>
+      <option value="usa">USA</option>
+    </select>
+
+    <label for="subject">Subject</label>
+    <textarea id="subject" name="subject" placeholder="What are looking for?" style="height:50px"></textarea>
+
+    <label for="Message">Message</label>
+    <textarea id="msg" name="msg" placeholder="How can we help you today?" style="height:200px"></textarea>
+
+    <input value="Submit" type="submit">
+
+  </form>
 </div>
 
 <ul class="bottomnav">
