@@ -39,7 +39,7 @@ See: https://p10.secure.webhosting.luminate.com/phpmailsetup?ssc=us1
       <textarea id="subject" name="subject" placeholder="What do you need?" style="height:200px"></textarea>
 
       <label for="msg">Message</label>
-      <textarea id="msg" name="$msg" placeholder=How can we help you today? ..." style="height:200px"></textarea>
+      <textarea id="msg" name="msg" placeholder="How can we help you today? ..." style="height:200px"></textarea>
 
       <input value="Submit" type="submit">
 
