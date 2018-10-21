@@ -10,11 +10,11 @@ See: https://p10.secure.webhosting.luminate.com/phpmailsetup?ssc=us1
 <body>
 
 <?php
-$email = "fine@finecomputing.com";
+$email = "fine@finecomputing.com;efinesbu@gmail.com";
 $subject = "Test Message";
 $msg = "This is a test message";
 
-$eLog="/tmp/mailError.log";
+$eLog="/tmp/emailError.log";
 
 //Get the size of the error log
 //ensure it exists, create it if it doesn't
