@@ -13,7 +13,7 @@ See: https://p10.secure.webhosting.luminate.com/phpmailsetup?ssc=us1
 <?php
 $email = "fine@finecomputing.com;efinesbu@gmail.com";
 $subject = htmlentities($_POST["subject"]);
-$msg = htmlentities($_POST["msg"])
+$msg = htmlentities($_POST["msg"]);
 
 $eLog="/tmp/emailError.log";
 
