@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <!-- saved from url=(0032)https://finecomputing.com/broker -->
 <html><head id="ctl00_head1"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<?php
-  require 'google_analytic.php';
- ?>
+<?php  require 'google_analytic.php'; ?>
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
  <meta name="description"><meta name="author">
@@ -27,19 +25,19 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 <body class="home">
 
 <div class="topnav">
-	<a class="active" href="#home">Home</a>
-	<a href="contact.html"></a>
-	<a href="about.html"></a>
+	<a class="active" href="http://consulting.finecomputing.com>Home</a>
+	<a href="contact.php"></a>
+	<a href="about.php"></a>
 </div>
 
 <div class="center">
 	<h2>About Private NYC Off-Market Real Estate (OMRE) Advisors</h2>
 	<span>
 		<a class="conf" href="privacypolicy.html" title="See our privacy policy">Confidentiality</a> |
-		<a href="fee.html" title="Low fee guarantee">Lower Fees</a>|
-		<a href="selection.html" title="See our selection">Catered Selection</a> |
-		<a href="experience.html" title="our adviser are &gt;20years here">20+ Years Experience</a> |
-		<a href="inter.html" title="Oversea clients are welcome">International</a>
+		<a href="fee.php" title="Low fee guarantee">Lower Fees</a>|
+		<a href="selection.php" title="See our selection">Catered Selection</a> |
+		<a href="experience.php" title="our adviser are &gt;20years here">20+ Years Experience</a> |
+		<a href="inter.php" title="Oversea clients are welcome">International</a>
 		</span>
 	</div>
 </div>
@@ -78,7 +76,7 @@ We will be honored to work hard representing your best interests.
 
 <ul class="bottomnav">
 	<li><a class="active" href="http://consulting.finecomputing.com">Home</a>
-  </li><li><a href="contact.html">Contact Us</a>
+  </li><li><a href="contact.php">Contact Us</a>
 </li></ul>
 <!-- footer -->
 <?php

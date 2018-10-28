@@ -1,16 +1,7 @@
-
 <!DOCTYPE html>
 <!-- saved from url=(0032)https://finecomputing.com/broker -->
 <html><head id="ctl00_head1"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-53560525-3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-53560525-3');
-</script>
+<?php  require 'google_analytic.php'; ?>
 <link type="text/css" rel="stylesheet" href="broker.css" />
 <!--
 script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_files/300lo.json"></script>
@@ -33,18 +24,41 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 </head>
 <body class="home">
 
-<div class="center">
-	<h2>Our Fee</h2>
+<div class="topnav">
+	<a class="active" href="http://consulting.finecomputing.com">Home</a>
+	<a href="contact.php"></a>
+	<a href="about.php"></a>
 </div>
 
+<div class="center">
+	<h2>Private NYC Off-Market Real Estate (OMRE) Advisors Experience</h2>
+	<span>
+		<a class="conf.html" href="privacypolicy.html" title="See our privacy policy">Confidentiality</a> |
+		<a href="fee.php" title="Low fee guarantee">Lower Fees</a>|
+		<a href="selection.php" title="See our selection">Catered Selection</a> |
+		<a href="experience.php" title="our adviser are &gt;20years here">20+ Years Experience</a> |
+		<a href="inter.php" title="Oversea clients are welcome">International</a>
+		</span>
+	</div>
+</div>
 <div class="main">
 <p>
-  Has to be filled with the real content yet or removed
+Our Realtors team has been successfully advising both domestic and
+international clients on Residential and Commercial Real Estate
+transactions.
+</p><p>
+We have access to some of the Best off market properties available in the New York Metro Area.
 </p>
+<p>
+We would love to work with you and help you with your next property acquisition or disposition.
+We will be honored to work hard representing your best interests.
+</p>
+</div>
 
 <ul class="bottomnav">
-  <li><a class="active" href="http://consulting.finecomputing.com">Home</a>
+	<li><a class="active" href="http://consulting.finecomputing.com">Home</a>
   </li><li><a href="contact.php">Contact Us</a>
 	</li><li><a href="about.php">About</a>
 </li></ul>
+<?php include 'site_footer.php'; ?>
 </html>

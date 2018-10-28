@@ -3,14 +3,7 @@
 <!-- saved from url=(0032)https://finecomputing.com/broker -->
 <html><head id="ctl00_head1"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-53560525-3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-53560525-3');
-</script>
+<?php  require 'google_analytic.php'; ?>
 <link type="text/css" rel="stylesheet" href="broker.css" />
 <!--
 script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_files/300lo.json"></script>
@@ -47,4 +40,5 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
   </li><li><a href="contact.php">Contact Us</a>
 	</li><li><a href="about.php">About</a>
 </li></ul>
+<?php include 'site_footer.php'; ?>
 </html>
