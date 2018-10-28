@@ -34,15 +34,8 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 </div>
 
 <div class="main">
-<p>
-At [This company name], we are committed to protecting your privacy and creating a safe and secure online environment for anyone who visits and uses on our site. All information is confidential and is never sold, rented, or otherwise used for any purpose other than to help us match you with a bank, lender or broker (whom we will refer to all these as “Lenders”) or real estate agents who can meet your needs. This notice describes our privacy policy.
-By visiting [this website url], you are accepting the practices described in this Privacy Notice.
-</p>
-
-<h3>International</h3>
-
-<h4> Under Construction! </h4>
-
+      <h4> Under Construction! </h4>
+</div>
 <ul class="bottomnav">
   <li><a class="active" href="http://consulting.finecomputing.com">Home</a>
   </li><li><a href="contact.php">Contact Us</a>
