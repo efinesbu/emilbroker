@@ -40,6 +40,12 @@ div.center{
 	overflow: hidden;
 	display: inline-block;
 	}
+	.topnav li {
+		background-color:#777777;
+		overflow: hidden;
+		display: inline-block;
+    padding: 20px;		
+		}
 
 .bottomnav {
 	background-color:#fafafa;
