@@ -10,10 +10,12 @@
 
   gtag('config', 'UA-53560525-3');
 </script>
+<link type="text/css" rel="stylesheet" href="broker.css" />
+
 <!--
 script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_files/300lo.json"></script>
 <script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_files/_ate.config_resp"></script>
-Hello
+
 -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -23,11 +25,8 @@ Hello
 <meta name="keywords" content="property, market,upper,east,west,south,east,Upper East Side,Upper West side,Tribeca, FIDI,">
 <meta name="keywords" content="Midtown, Midtown Manhattan, Chelsea,Hudson Yards,Hudson,Yards,Central, park,lower">
 <meta name="keywords" content="Central, park,NOLO, development,for sale, residential, properties, investment, sale, buy, foreclosures,public">
-<link type="text/css" rel="stylesheet" href="broker.css" />
 <title>
-
   Private NYC OMRE Advisors
-
 </title>
 </head>
 <body class="home">
@@ -39,7 +38,7 @@ Hello
 </div>
 
 <div class="center">
-	<h2>About Private NYC Off-Market Real Estate (OMRE) Advisors</h2>
+	<h2>Contact Private NYC Off-Market Real Estate (OMRE) Advisors</h2>
 	<span>
 		<a class="conf" href="privacypolicy.html" title="See our privacy policy">Confidentiality</a> |
 		<a href="fee.html" title="Low fee guarantee">Lower Fees</a>|
@@ -50,25 +49,6 @@ Hello
 	</div>
 </div>
 <div class="main">
-  <table>
-    <tbody>
-      <tr>
-      <td style="width:30%" align="right"><strong>What are off-market properties?</strong></td>
-      <td align="left">| Properties that are not listed anywhere for sale</td>
-      </tr>
-      <tr>
-      <td align="right"><strong>What are the benefits?</strong></td>
-      <td align="left">| More than 95% of NYC real estate is off-market, higher chance of winning bids and options</td>
-      </tr>
-      <tr>
-      <td align="right"><strong>What we do?</strong></td>
-      <td align="left">| If buying, we create a catered selection of options based on your criteria and provide full transaction services <br />| Whisper Properties are properties that are privately offered to a select group of investors</td>
-      <tr>
-      <td align="right"><strong>Why us?</strong></td>
-      <td align="left">| It's a free one-stop shop. We specialize in NYC off-market properties, guarantee data security and privacy, and only require payment to close the deal</td>
-      </tr>
-  </tbody>
-</table>
 <p>
 Our Realtors team has been successfully advising both domestic and
 international clients on Residential and Commercial Real Estate
@@ -82,8 +62,44 @@ We will be honored to work hard representing your best interests.
 </p>
 </div>
 
+<div class="container">
+  <?php
+   if (count($_POST) != 0) {
+     require 'sendMail.php';
+   }
+   print "<hr><p></p>" ;
+  ?>
+  <form action="contact.php", method="post">
+
+    <label for="fname">First Name</label>
+    <input id="fname" name="firstname" placeholder="Your name.." type="text">
+
+    <label for="lname">Last Name</label>
+    <input id="lname" name="lastname" placeholder="Your last name.." type="text">
+
+    <label for="country">Country</label>
+    <select id="country" name="country">
+      <option value="australia" selected="selected">Australia</option>
+      <option value="canada">Canada</option>
+      <option value="usa">USA</option>
+    </select>
+
+    <label for="subject">Subject</label>
+    <textarea id="subject" name="subject" placeholder="What are looking for?" style="height:40px"></textarea>
+
+    <label for="Message">Message</label>
+    <textarea id="msg" name="msg" placeholder="How can we help you today?" style="height:100px"></textarea>
+
+    <input value="Submit" type="submit">
+
+  </form>
+</div>
+
 <ul class="bottomnav">
 	<li><a class="active" href="http://consulting.finecomputing.com">Home</a>
-  </li><li><a href="contact.html">Contact Us</a>
+	</li><li><a href="about.html">About</a>
 </li></ul>
+<?php
+  include 'site_footer.php';
+?>
 </html>
