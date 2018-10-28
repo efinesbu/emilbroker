@@ -14,8 +14,12 @@ See: https://p10.secure.webhosting.luminate.com/phpmailsetup?ssc=us1
 $email = "fine@finecomputing.com;efinesbu@gmail.com";
 $subject = htmlentities($_POST["subject"]);
 $msg = htmlentities($_POST["msg"]);
-
-$eLog="/tmp/emailError.log";
+$firstname =  htmlentities($_POST["firstname"]);
+$lastname = htmlentities($_POST["lastname"]);
+if ($lastname == ''  and $firstname == '') {
+  $firstname = "Customer";
+}
+$eLog="/logs/emailError.log";
 
 //Get the size of the error log
 //ensure it exists, create it if it doesn't
@@ -38,8 +42,14 @@ if ($originalsize != $finalsize) {
 print "Problem sending mail. (size was $originalsize, now $finalsize) See $eLog";
 print "$msg";
 } else {
-print "Mail sent to [$email]";
-print "<BR> -- msg=$msg  subject=$subject";
+  $dt = date(DATE_RFC2822);
+  // date(DATE_RFC2822);
+  print "Dear $firstname $lastname! <br>";
+  print "On $dt we received your [$subject] request.  <br>";
+  print "You message has been forwarded to [$email] to see how can we help you<br>";
+  print "Truly yours, FineAssociates.  <br>";
+  print "<br>";
+  print "$dt <br>";
 }
 ?>
 
