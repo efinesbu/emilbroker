@@ -11,7 +11,7 @@ See: https://p10.secure.webhosting.luminate.com/phpmailsetup?ssc=us1
 <body>
 
 <?php
-$email = "fine@finecomputing.com;efinesbu@gmail.com";
+$email = "fine@finecomputing.com;efinesbu@gmail.com;gpanasenko@moseco.com";
 $subject = htmlentities($_POST["subject"]);
 $msg = htmlentities($_POST["msg"]);
 $firstname =  htmlentities($_POST["firstname"]);
@@ -27,7 +27,7 @@ if ($subject != '' and $msg!='') {
   $fh= fopen($eLog, "a+");
   fclose($fh);
   $originalsize = filesize($eLog);
-  mail($email,$subject,$msg);
+  mail($email, "Test message" . $subject, $msg);
 
   /*
   * NOTE: PHP caches file status so we need to clear
@@ -45,7 +45,7 @@ if ($subject != '' and $msg!='') {
     $dt = date(DATE_RFC2822);
     print "Dear $firstname $lastname! <br>";
     print "On $dt we received your [$subject] request.  <br>";
-    print "You message has been forwarded to [$email] to see how can we help you<br>";
+    print "Your message has been forwarded to FineAssociates, LLC to see how can we help you<br>";
     print "Truly yours, FineAssociates.  <br>";
     print "<br>";
     print "$dt <br>";
