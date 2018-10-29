@@ -62,18 +62,7 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
   </tbody>
 </table>
 <p>
-Our Realtors team has been successfully advising both domestic and
-international clients on Residential and Commercial Real Estate
-transactions.
-</p><p>
-We have access to some of the Best off market properties available in the New York Metro Area.
-</p>
-<p>
-We would love to work with you and help you with your next property acquisition or disposition.
-We will be honored to work hard representing your best interests.
-</p>
-</div>
-
+<?php require 'our_team.php'?>
 <ul class="bottomnav">
 	<li><a class="active" href="http://consulting.finecomputing.com">Home</a>
   </li><li><a href="contact.php">Contact Us</a>
