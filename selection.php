@@ -43,8 +43,8 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 
 <ul class="bottomnav">
 	<li><a class="active" href="http://consulting.finecomputing.com">Home</a>
-  </li><li><a href="https://finecomputing.com/contact">Contact Us</a>
-	</li><li><a href="https://finecomputing.com/about">About</a>
+  </li><li><a href="contact.php">Contact Us</a>
+	</li><li><a href="about.php">About</a>
 </li></ul>
 <?php include 'site_footer.php'; ?>
 </html>

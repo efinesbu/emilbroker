@@ -12,7 +12,7 @@ echo "
   accommodating their most complex and sophisticated needs,
   and turning Dreams into a Reality.
   <p>
-  It will be an Honor to advise and serve.
+  It will be an Honor to advise and serve you.
 ";
 ?>
 </div>
