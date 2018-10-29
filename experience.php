@@ -31,7 +31,7 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 </div>
 
 <div class="center">
-	<h2>Private NYC <a href="https://www.forbes.com/sites/forbesrealestatecouncil/2017/12/28/an-inside-look-at-off-market-real-estate-investments/#5761d84757d2">Off-Market</a> Real Estate (OMRE) Advisors Experience</h2>
+	<h2>Private NYC <a title="An Inside Look At Off-Market Real Estate Investments" href="https://www.forbes.com/sites/forbesrealestatecouncil/2017/12/28/an-inside-look-at-off-market-real-estate-investments/#5761d84757d2">Off-Market</a> Real Estate (OMRE) Advisors Experience</h2>
 	<span>
 		<a class="conf.html" href="privacypolicy.html" title="See our privacy policy">Confidentiality</a> |
 		<a href="fee.php" title="Low fee guarantee">Lower Fees</a>|
@@ -47,7 +47,7 @@ Our Realtors team has been successfully advising both domestic and
 international clients on Residential and Commercial Real Estate
 transactions.
 </p><p>
-We have access to some of the Best <a href="https://www.forbes.com/sites/forbesrealestatecouncil/2017/12/28/an-inside-look-at-off-market-real-estate-investments/#5761d84757d2">Off-market</a> properties available in the New York Metro Area.
+We have access to some of the Best <a title="An Inside Look At Off-Market Real Estate Investments" href="https://www.forbes.com/sites/forbesrealestatecouncil/2017/12/28/an-inside-look-at-off-market-real-estate-investments/#5761d84757d2">Off-market</a> properties available in the New York Metro Area.
 </p>
 <p>
 We would love to work with you and help you with your next property acquisition or disposition.
