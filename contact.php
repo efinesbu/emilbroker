@@ -40,26 +40,15 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 		</span>
 	</div>
 </div>
-<div class="main">
-<p>
-Our Realtors team has been successfully advising both domestic and
-international clients on Residential and Commercial Real Estate
-transactions.
-</p><p>
-We have access to some of the Best off market properties available in the New York Metro Area.
-</p>
-<p>
-We would love to work with you and help you with your next property acquisition or disposition.
-We will be honored to work hard representing your best interests.
-</p>
+<?php require 'our_team.php' ?>
 </div>
-
+<p></p>
 <div class="container">
   <?php
    if (count($_POST) != 0) {
      require 'sendMail.php';
    }
-   print "<hr><p></p>" ;
+   print "<hr><h3>Contact Us: </h3><hr><p></p>" ;
   ?>
   <form action="contact.php", method="post">
 

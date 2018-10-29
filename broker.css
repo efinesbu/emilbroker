@@ -44,7 +44,7 @@ div.center{
 		background-color:#777777;
 		overflow: hidden;
 		display: inline-block;
-    padding: 20px;		
+    padding: 20px;
 		}
 
 .bottomnav {
@@ -63,4 +63,5 @@ div.center{
 	color: black;
 	background-color: #f5f5f5;
 	opacity: 0.9;
+	padding: 20px;
 }
