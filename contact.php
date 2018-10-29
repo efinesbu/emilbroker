@@ -30,7 +30,7 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 </div>
 
 <div class="center">
-	<h2>Contact Private NYC Off-Market Real Estate (OMRE) Advisors</h2>
+	<h2>Contact Private NYC <a href="https://www.forbes.com/sites/forbesrealestatecouncil/2017/12/28/an-inside-look-at-off-market-real-estate-investments/#5761d84757d2">Off-Market</a> Real Estate (OMRE) Advisors</h2>
 	<span>
 		<a class="conf" href="privacypolicy.html" title="See our privacy policy">Confidentiality</a> |
 		<a href="fee.php" title="Low fee guarantee">Lower Fees</a>|
