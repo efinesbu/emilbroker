@@ -30,14 +30,7 @@ About NYC Real Estate Off-Market
 
 <div class="center">
 	<h2>About NYC Real Estate Off-Market</h2>
-	<span>
-		<a class="conf" href="privacypolicy.html" title="See our privacy policy">Confidentiality</a> |
-		<a href="fee.php" title="Low fee guarantee">Lower Fees</a>|
-		<a href="selection.php" title="See our selection">Catered Selection</a> |
-		<a href="experience.php" title="our adviser are &gt;20years here">20+ Years Experience</a> |
-		<a href="inter.php" title="Oversea clients are welcome">International</a>
-		</span>
-	</div>
+  <?php require 'site_top_menu.php'; ?>
 </div>
 <div class="main">
 <center>
