@@ -28,33 +28,26 @@ About FineAssociates and BYC Off-Market Real Estate
 </div>
 
 <div class="center">
-	<h2>About Private NYC <a title="An Inside Look At Off-Market Real Estate Investments" href="https://www.forbes.com/sites/forbesrealestatecouncil/2017/12/28/an-inside-look-at-off-market-real-estate-investments/#5761d84757d2">Off-Market</a> Real Estate (OMRE) Advisors</h2>
-	<span>
-		<a class="conf" href="privacypolicy.html" title="See our privacy policy">Confidentiality</a> |
-		<a href="fee.php" title="Low fee guarantee">Lower Fees</a>|
-		<a href="selection.php" title="See our selection">Catered Selection</a> |
-		<a href="experience.php" title="our adviser are &gt;20years here">20+ Years Experience</a> |
-		<a href="inter.php" title="Oversea clients are welcome">International</a>
-		</span>
-	</div>
+	<h2>About Private NYC <a title="Off-Market Properties Aren't Listed" href="aboutoffmarket.php">Off-Market</a> Real Estate (OMRE) Advisors</h2>
+  <?php require 'site_top_menu.php'; ?>
 </div>
 <div class="main">
   <table>
     <tbody>
       <tr>
-      <td style="width:30%" align="right"><strong>What are <a title="An Inside Look At Off-Market Real Estate Investments" href="https://www.forbes.com/sites/forbesrealestatecouncil/2017/12/28/an-inside-look-at-off-market-real-estate-investments/#5761d84757d2">Off-market</a> properties?</strong></td>
+      <td style="width:30%" align="right"><strong>What are <a title="Off-Market Properties Aren't Listed" href="aboutoffmarket.php">Off-market</a> properties?</strong></td>
       <td align="left">| Properties that are not listed anywhere for sale</td>
       </tr>
       <tr>
       <td align="right"><strong>What are the benefits?</strong></td>
-      <td align="left">| More than 95% of NYC real estate is <a title="An Inside Look At Off-Market Real Estate Investments" href="https://www.forbes.com/sites/forbesrealestatecouncil/2017/12/28/an-inside-look-at-off-market-real-estate-investments/#5761d84757d2">Off-market</a>, higher chance of winning bids and options</td>
+      <td align="left">| More than 95% of NYC real estate is <a title="Off-Market Properties Aren't Listed" href="aboutoffmarket.php">Off-market</a>, higher chance of winning bids and options</td>
       </tr>
       <tr>
       <td align="right"><strong>What we do?</strong></td>
       <td align="left">| If buying, we create a catered selection of options based on your criteria and provide full transaction services <br />| Whisper Properties are properties that are privately offered to a select group of investors</td>
       <tr>
       <td align="right"><strong>Why us?</strong></td>
-      <td align="left">| It's a free one-stop shop. We specialize in NYC <a title="An Inside Look At Off-Market Real Estate Investments" href="https://www.forbes.com/sites/forbesrealestatecouncil/2017/12/28/an-inside-look-at-off-market-real-estate-investments/#5761d84757d2">Off-market</a> properties, guarantee data security and privacy, and only require payment to close the deal</td>
+      <td align="left">| It's a free one-stop shop. We specialize in NYC <a title="Off-Market Properties Aren't Listed" href="aboutoffmarket.php">Off-market</a> properties, guarantee data security and privacy, and only require payment to close the deal</td>
       </tr>
   </tbody>
 </table>

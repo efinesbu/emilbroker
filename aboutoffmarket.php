@@ -17,7 +17,7 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 -->
 <link type="text/css" rel="stylesheet" href="broker.css" />
 <title>
-  NYC Real Eastate Off-Market
+About NYC Real Estate Off-Market
 </title>
 </head>
 <body class="home">
@@ -29,7 +29,7 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 </div>
 
 <div class="center">
-	<h2>About NYC Real Estate Offmarket</h2>
+	<h2>About NYC Real Estate Off-Market</h2>
 	<span>
 		<a class="conf" href="privacypolicy.html" title="See our privacy policy">Confidentiality</a> |
 		<a href="fee.php" title="Low fee guarantee">Lower Fees</a>|
@@ -40,9 +40,13 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 	</div>
 </div>
 <div class="main">
-<a title="An Inside Look At Off-Market Real Estate Investments" href="https://www.forbes.com/sites/forbesrealestatecouncil/2017/12/28/an-inside-look-at-off-market-real-estate-investments/#5761d84757d2">Off-Market</a> Real Estate (OMRE) Advisors</h2><p>
-<cite>If off-market properties aren't listed, how can investors locate these deals?</cite>
-
+<center>
+<a title="An Inside Look At Off-Market Real Estate Investments" href="https://www.forbes.com/sites/forbesrealestatecouncil/2017/12/28/an-inside-look-at-off-market-real-estate-investments/#5761d84757d2">
+<cite>
+  . . . If off-market properties aren't listed, how can investors locate these deals? . . .
+</cite>
+</a>
+</center>
 <?php require 'our_team.php'?>
 <ul class="bottomnav">
 	<li><a class="active" href="http://consulting.finecomputing.com">Home</a>
