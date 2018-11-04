@@ -17,9 +17,7 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 -->
 <link type="text/css" rel="stylesheet" href="broker.css" />
 <title>
-
-  Private NYC OMRE Advisors
-
+About FineAssociates and BYC Off-Market Real Estate
 </title>
 </head>
 <body class="home">
@@ -27,7 +25,6 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 <div class="topnav">
 	<a class="active" href="http://consulting.finecomputing.com>Home</a>
 	<a href="contact.php"></a>
-	<a href="about.php"></a>
 </div>
 
 <div class="center">
