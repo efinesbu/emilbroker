@@ -47,7 +47,7 @@ About FineAssociates and BYC Off-Market Real Estate
       <td align="left">| If buying, we create a catered selection of options based on your criteria and provide full transaction services <br />| Whisper Properties are properties that are privately offered to a select group of investors</td>
       <tr>
       <td align="right"><strong>Why us?</strong></td>
-      <td align="left">| It's a free one-stop shop. We specialize in NYC <a title="Off-Market Properties Aren't Listed" href="aboutoffmarket.php">Off-market</a> properties, guarantee data security and privacy, and only require payment to close the deal</td>
+      <td align="left">| It's a free one-stop shop. We specialize in NYC <a title="Off-Market Properties Aren't Listed" href="aboutoffmarket.php">Off-market</a> properties, guarantee data security and privacy</td>
       </tr>
   </tbody>
 </table>
