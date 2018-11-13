@@ -7,3 +7,15 @@
 
   gtag('config', 'UA-53560525-3');
 </script>
+<!--
+<script src='https://www.google.com/recaptcha/api.js?render=6Lckl3kUAAAAAI876a2sygzSh1ti-FkG4uySZ-mZ'></script>
+
+<script>
+grecaptcha.ready(function() {
+grecaptcha.execute('6Lckl3kUAAAAAI876a2sygzSh1ti-FkG4uySZ-mZ', {action: 'action_name'})
+.then(function(token) {
+// Verify the token on the server.
+});
+});
+</script>
+--> 
