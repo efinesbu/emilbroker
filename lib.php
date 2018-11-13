@@ -39,7 +39,7 @@ function create_db()
 }
 
 //____________________________________________
-functiom connect_db()
+function connect_db()
 {
   $host = "mysql";
   $user = "finecomputing";
@@ -53,7 +53,7 @@ functiom connect_db()
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error . "<br>");
   }
-  return $conn
+  return $conn;
 }
 
 //____________________________________________
