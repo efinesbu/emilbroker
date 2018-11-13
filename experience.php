@@ -47,7 +47,6 @@ We would love to work with you and help you with your next property acquisition 
 We will be honored to work hard representing your best interests.
 </p>
 </div>
-
 <ul class="bottomnav">
 	<li><a class="active" href="http://consulting.finecomputing.com">Home</a>
   </li><li><a href="contact.php">Contact Us</a>
