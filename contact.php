@@ -39,41 +39,68 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 <p></p>
 <div class="container">
   <?php
-   if (count($_POST) != 0) {
-     require 'sendMail.php';
-   }
-   print "<hr><h3>Contact Us: </h3><hr><p></p>" ;
-  ?>
-  <p><span class="error">* required field</span></p>
-  <form action="contact.php", method="post">
+    if (count($_GET) != 0) {
+      $user_id = $_GET['user_id'];
+      print "<p><span class='error'>* required field</span></p>";
+      print "<form action='contact.php', method='post'>";
 
-    <label for="fname">First Name</label>
-    <input id="fname" name="firstname" placeholder="Your name.." type="text">
+      print "<label for='user_id'>Registration Number</label><span class='error'>*";
+      print "<input id='user_id' name='user_id' readonly value='$user_id' type='text'>";
 
-    <label for="lname">Last Name</label>
-    <input id="lname" name="lastname" placeholder="Your last name.." type="text">
+      print "<label for='fname'>First Name</label><span class='error'>*";
+      print "<input id='fname' name='firstname' placeholder='Your name from your previous $user_id request...' type='text' required>";
 
-    <label for="country">Country</label>
-    <select id="country" name="country">
-      <option value="australia" selected="selected">Australia</option>
-      <option value="canada">Canada</option>
-      <option value="usa">USA</option>
-    </select>
+      print "<label for='lname'>Last Name</label><span class='error'>*";
+      print "<input id='lname' name='lastname' placeholder='Your last name from your previous $user_id request...' type='text' required>";
 
-    <label for="subject">Subject</label><span class="error">*
-    <textarea id="subject" name="subject" placeholder="What are looking for?" style="height:40px"></textarea>
+      print "<input value='Submit' type='submit'>";
+    } else {
+      if (count($_POST) != 0) {
+        echo count($_POST);
+        if (array_key_exists('user_id', $_POST)) {
+          require "libview.php";
+          $user_id = $_POST['user_id'];
+          $lastname = $_POST['lastname'];
+          $firstname = $_POST['firstname'];
+          echo "libview.php<hr>";
+          show_last_seq($user_id, $firstname, $lastname);
+        } else {
+          require "sendMail.php";
+        }
+      }
+      if (!array_key_exists('user_id', $_POST))  {
+        print "<hr><h3>Contact Us: </h3><hr><p></p>" ;
 
-    <label for="Message">Message</label><span class="error">*
-    <textarea id="msg" name="msg" placeholder="How can we help you today?" style="height:100px"></textarea>
+        print '
+        <p><span class="error">* required field</span></p>
+        <form action="contact.php", method="post">
 
-    <input value="Submit" type="submit">
+          <label for="fname">First Name</label>
+          <input id="fname" name="firstname" placeholder="Your name.." type="text">
 
-  </form>
-</div>
-<p></p>
+          <label for="lname">Last Name</label>
+          <input id="lname" name="lastname" placeholder="Your last name.." type="text">
+
+          <!-- <label for="ticket #">Account #, if available</label><span class="error">*
+           <textarea id="ticket" name="ticket" placeholder="Enter ticket # to review reply" style="height:40px"></textarea>
+          -->
+          <label for="subject">Subject</label><span class="error">*
+          <textarea id="subject" name="subject" placeholder="What are looking for?" required style="height:40px"></textarea>
+
+          <label for="Message">Message</label><span class="error">*
+          <textarea id="msg" name="msg" placeholder="How can we help you today?" required style="height:100px"></textarea>
+
+          <input value="Submit" type="submit">
+
+        </form>
+      </div>
+      <p></p>';
+}}
+?>
 <ul class="bottomnav">
 	<li><a class="active" href="http://consulting.finecomputing.com">Home</a>
-	</li><li><a href="about.php">About</a>
+  </li><li><a href="contact.php">Contact Us</a>
+  </li><li><a href="about.php">About</a>
 </li></ul>
 <?php
   include 'site_footer.php';
