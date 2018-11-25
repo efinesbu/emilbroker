@@ -48,10 +48,10 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
       print "<input id='user_id' name='user_id' readonly value='$user_id' type='text'>";
 
       print "<label for='fname'>First Name</label><span class='error'>*";
-      print "<input id='fname' name='firstname' placeholder='Your name from your previous $user_id request...' type='text' required>";
+      print "<input id='fname' name='firstname' placeholder='Your name from your previous $user_id-th request...' type='text' required>";
 
       print "<label for='lname'>Last Name</label><span class='error'>*";
-      print "<input id='lname' name='lastname' placeholder='Your last name from your previous $user_id request...' type='text' required>";
+      print "<input id='lname' name='lastname' placeholder='Your last name from your previous $user_id-th request...' type='text' required>";
 
       print "<input value='Submit' type='submit'>";
     } else {
