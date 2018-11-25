@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 1);
 //____________________________________________
 function consulting_server()
 {
@@ -20,17 +21,17 @@ function create_db()
   $pd = "sqlKreml1n";
   $database = "consulting";
 
-  $conn  = new mysqli($db, $user, $pd);
- // Check connection
+  $conn  = new mysqli($host, $user, $pd);
 
+ // Check connection
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error . "<br>");
   }
 
-  echo "Connected successfully<hr>";
+  echo "Host $host connected successfully<hr>";
 
-  $query = "CREATE DATABASE $database;";
-  if ($conn->query($sql) === TRUE) {
+  $query = "CREATE DATABASE $database";
+  if ($conn->query($query) === TRUE) {
       echo "Database created successfully";
   } else {
       echo "Error creating database: " . $conn->error;
@@ -45,42 +46,277 @@ function connect_db()
   $user = "finecomputing";
   $pd = "sqlKreml1n";
   $database = "consulting";
-  $table = "customers";
 
-  $conn  = new mysqli($db, $user, $pd, $database);
+  $conn  = new mysqli($host, $user, $pd, $database);
  // Check connection
 
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error . "<br>");
+  } else {
+    error_log( "$database has been connected");
   }
   return $conn;
 }
-
 //____________________________________________
-function create_table($table='')
+function recreate_all_db_tables(){
+  create_user_table();
+  create_attribute_table();
+  create_evttype_table();
+}
+//____________________________________________
+function calculate_seq_per_user($user_id, $event_type){
+  $table = "main";
+  $conn =  connect_db();
+  //$conn->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+  $sql = "SELECT MAX(event_seq) as seq from $table
+                WHERE user_id=$user_id AND event_type=$event_type";
+  echo "calculate_seq_per_use: $sql <br>";
+  $result = $conn->query($sql);
+  $row = $result->fetch_array();
+  $event_seq  = 1;
+  if ($row) {
+    $event_seq = $row[0] + 1;
+    echo "--> row = $row[1] event_seq= $event_seq<br>";
+  }
+  $result->free();
+  $conn->close();
+  return $event_seq;
+}
+//____________________________________________
+function select_user($user_id, $event_seq=0){
+  //:param $event_seqL =0 : show all reacords available
+  //                   =-1: show th last records available
+  //                   > 0: the event_seq record
+  $table = "main";
+  $conn  = connect_db();
+  if ($event_seq === 0) {
+    $sql = "SELECT * from $table WHERE user_id = $user_id";
+  } elseif ($event_seq === -1) {
+    $sql = "SELECT * from $table WHERE user_id = $user_id AND event_seq = (SELECT MAX(event_seq) FROM $table WHERE user_id = $user_id)" ;
+  } else {
+    $sql = "SELECT * from $table WHERE user_id = $user_id AND event_seq=$event_seq";
+  }
+  $result = $conn->query($sql);
+
+  while($row = $result->fetch_array())
+  {
+    $rows[] = $row;
+  }
+  $result->free();
+  $conn->close();
+  return $rows;
+}
+//____________________________________________
+function select_user_attr($user_id){
+  $table = "attr";
+  $conn  = connect_db();
+  $sql = "SELECT * from $table WHERE user_id = $user_id";
+  $result = $conn->query($sql);
+
+  while($row = $result->fetch_array())
+  {
+    $rows[] = $row;
+  }
+  $result->free();
+  $conn->close();
+  return $rows;
+}
+//____________________________________________
+function populating_user_table($user){
+  echo "user_id  $user<br>";
+  $table = "main";
+  $conn =  connect_db();
+  $last_id = 0;
+
+  $event_type = $user['event_type'];
+  $user_id    = $user['user_id'];
+  $event_seq  = $user['event_seq'];
+  $message    = $user['message'];
+  $subject    = $user['subject'];
+  $host       = $user['host'];
+  $ref        = $user['ref'];
+
+  // Adding the new collator_get_attribute
+  $sql =  "INSERT INTO $table (event_type, user_id, event_seq, subject, message, host, ref)
+           VALUES ($event_type,  $user_id,  $event_seq,
+                   '$subject', '$message', '$host', $ref)";
+  echo "$sql<br>";
+  $result = $conn->query($sql);
+  if ($result) {
+    $last_id = $conn->insert_id;
+    echo "Table $table created successfully $last_id<br>";
+  } else {
+    echo "Error creating table: " . $conn->error . "<br>";
+  }
+  echo "Finished! $last_id<br>";
+  $conn->close();
+  return $last_id;
+}
+//____________________________________________
+function create_user_table()
+{
+  $table = "main";
+  $schema = "event_id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            reg_date TIMESTAMP,  -- message date/time
+            event_type INT(6)  UNSIGNED NOT NULL, -- event type from
+            user_id INT(6) UNSIGNED NOT NULL, -- user id
+            event_seq  INT(6)  UNSIGNED NOT NULL, -- seq for user id
+            subject VARCHAR(4000) NOT NULL, -- user's message
+            message VARCHAR(4000) NOT NULL, -- user's message
+            host VARCHAR(100) NOT NULL, -- IP address where request came from
+            ref INT(6) UNSIGNED,  --  to the related event_seq
+
+            FOREIGN KEY (ref) REFERENCES $table(event_id)
+            ON UPDATE CASCADE
+            ON DELETE RESTRICT
+          ";
+  echo "schema $schema of $table<br>";
+  create_table($table, $schema);
+}
+//____________________________________________
+function create_attribute_table()
+{
+  $schema = "UUID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            reg_date TIMESTAMP,  -- message date/time
+            user_id INT(6) UNSIGNED, -- user id
+            attribute_name VARCHAR(40),
+            attribute_value VARCHAR(40)
+          ";
+  echo "schema $schema <br>";
+  create_table("attr", $schema);
+}
+//____________________________________________
+function create_evttype_table()
+{
+  $schema = "event_type INT(6) UNSIGNED PRIMARY KEY,
+            event_desc VARCHAR(40)
+          ";
+  echo "schema $schema <br>";
+  create_table("evttype", $schema);
+  populate_evttype_table();
+}
+//____________________________________________
+function populate_evttype_table()
+{
+  echo "Starting repopulating . . . ";
+  $table = "evttype";
+  $conn =  connect_db();
+
+  // Remove all old data first
+  $sql = "DELETE FROM $table";
+  if ($conn->query($sql) === TRUE) {
+      echo "All record have been removed successfully<br>";
+  } else {
+      echo "Error: " . $sql . "<br>" . $conn->erro . "<br>";
+  }
+  // Repopulate the table
+  $eventTypes = array("Client Inquiry",
+                      "Advisor Reply",
+                      "Notification to Advisor Sent",
+                      "Default Reply"
+                   );
+
+  foreach ($eventTypes as $id => $type)
+  {
+    $sql = "INSERT INTO $table (event_type, event_desc)
+            VALUES ($id, '$type')";
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully: $id, $type  added to $table<br>";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error . "<br>";
+    }
+  }
+  $conn->close();
+}
+//_________________________________________________
+function adding_new_user($attribute, $value, $user_id)
+{
+  $table = "attr";
+  echo "$table $user_id $attribute <br>";
+  $conn = connect_db();
+  if ($user_id===0) {
+    $conn->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+    $sql = "SELECT MAX(user_id) as user from $table";
+    echo "$sql <br>";
+    $result = $conn->query($sql);
+    $row = $result->fetch_row();
+    if ($row) {
+      echo "--> $row[1] <br>";
+      $user_id = $row[0] + 1;
+    }
+    $result->free();
+  }
+  echo "user_id  $user_id<br>";
+  // Adding the new collator_get_attribute
+  $sql =  "INSERT INTO $table (user_id, attribute_name, attribute_value)
+           VALUES ($user_id, '$attribute', '$value')";
+  echo "$sql<br>";
+  $result = $conn->query($sql);
+  if ($result) {
+    echo "Table $table created successfully";
+  } else {
+    echo "Error creating table: " . $conn->error . "<br>";
+  }
+  echo "Finished!<br>";
+  $conn->commit();
+  $conn->close();
+  return $user_id;
+}
+//____________________________________________
+function initial_client_inquiry($user_attr, $client_message){
+  // 1. populating attr table
+  echo "1. populating attr table<br>";
+
+  $this_event_type = 1;
+  $attrCounter = 0;
+  $next_user_id = 0;
+  foreach($user_attr as $attr_name => $attr_value){
+    echo "initial_client_inquiry $attr_name  $attr_value <br>";
+    if ($attrCounter === 0) {
+       $next_user_id =  adding_new_user($attr_name, $attr_value, 0);
+    } else {
+      adding_new_user($attr_name, $attr_value, $next_user_id);
+    }
+    $attrCounter = $attrCounter + 1;
+  }
+  // 2. populating main table
+  $next_event_seq = calculate_seq_per_user($next_user_id, $this_event_type);
+
+  $user = array('event_type' => $this_event_type,
+               'user_id'     => $next_user_id,
+               'event_seq'   => $next_event_seq,
+               'message'     => $client_message['message'],
+               'subject'     => $client_message['subject'],
+               'host'        => $client_message['host'],
+               'ref'         => 0
+             );
+  echo "2. populating main table with $user: " . $user['user_id'] . ' '. $user['event_seq'] . "<br>";
+  $user_id = populating_user_table($user);
+  return $user_id;
+}
+//____________________________________________
+function create_table($table='', $schema='')
 {
   if ($table == '') {
     $table = 'communications';
   }
   $conn =  connect_db();
-  $query = "CREATE TABLE $table (
-        id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        customer_id INT(6) KEY,
-        firstname VARCHAR(30) NOT NULL,
-        lastname VARCHAR(30) NOT NULL,
-        email VARCHAR(50),
-        phone VARCHAR(50),
-        status VARCHAR(50)  NOT NULL,
-        message VARCHAR(50),
-        reg_date TIMESTAMP
-        )";
-
-
-  if ($conn->query($sql) === TRUE) {
-    echo "Table $table created successfully";
+  $conn->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+  $query = "DROP TABLE IF EXISTS $table";
+  if ($conn->query($query) === TRUE) {
+    echo "Table $table has been dropped<br>";
   } else {
-    echo "Error creating table: " . $conn->error;
+    echo "Error dropping table: " . $conn->error . "<br>";
   }
+
+  $query = "CREATE TABLE $table (". $schema  ." )";
+
+  if ($conn->query($query) === TRUE) {
+    echo "Table $table created successfully <br>";
+  } else {
+    echo "Error creating [$table] table: " . $conn->error . "<br>";
+  }
+  $conn->commit();
   $conn->close();
 }
 ?>
