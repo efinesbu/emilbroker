@@ -37,6 +37,10 @@ function get_user_seq($user_id, $firstname, $lastname, $event_seq=-1)
   return $rows;
 }
 //___________________________________________________________
+function show_review_page($user_id, $firstname, $lastname, $main_row){
+
+}
+//___________________________________________________________
 function show_user_seq($user_id, $firstname, $lastname, $main_row){
   extract($main_row);
   if ($event_type == 1) {
@@ -45,7 +49,7 @@ function show_user_seq($user_id, $firstname, $lastname, $main_row){
     <p>Dear $firstname $lastname!
     <p>On $reg_date we received your request to assist you on<br>
     <center><cite>Subject: ' . . . $subject . . . '</cite></center>
-    <p>Our experts is analyzing how we can meet your order.
+    <p>Our experts are analyzing how we can meet your order.
     We are appologize, but at this time they have not provided any response yet.
     <p>The update of your orde will posted <a href='contact.php?user_id=$user_id'>here</a>
     <p>Please, visit us later.

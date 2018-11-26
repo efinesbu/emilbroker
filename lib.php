@@ -289,7 +289,7 @@ function populate_evttype_table()
   foreach ($eventTypes as $id => $type)
   {
     $sql = "INSERT INTO $table (event_type, event_desc)
-            VALUES ($id, '$type')";
+            VALUES ($id+1, '$type')";
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully: $id, $type  added to $table<br>";
     } else {
