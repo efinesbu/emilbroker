@@ -68,16 +68,16 @@ function recreate_all_db_tables(){
 function calculate_seq_per_user($user_id, $event_type){
   $table = "main";
   $conn =  connect_db();
-  //$conn->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+  $conn->begin_transaction();
   $sql = "SELECT MAX(event_seq) as seq from $table
                 WHERE user_id=$user_id AND event_type=$event_type";
-  echo "calculate_seq_per_use: $sql <br>";
+  error_log("calculate_seq_per_use: $sql <br>");
   $result = $conn->query($sql);
   $row = $result->fetch_array();
   $event_seq  = 1;
   if ($row) {
     $event_seq = $row[0] + 1;
-    echo "--> row = $row[1] event_seq= $event_seq<br>";
+    error_log("--> row = $row[1] event_seq= $event_seq<br>");
   }
   $result->free();
   $conn->close();
@@ -124,7 +124,7 @@ function select_user_attr($user_id){
 }
 //____________________________________________
 function populating_user_table($user){
-  echo "user_id  $user<br>";
+  error_log("user_id  $user<br>");
   $table = "main";
   $conn =  connect_db();
   $last_id = 0;
@@ -141,15 +141,15 @@ function populating_user_table($user){
   $sql =  "INSERT INTO $table (event_type, user_id, event_seq, subject, message, host, ref)
            VALUES ($event_type,  $user_id,  $event_seq,
                    '$subject', '$message', '$host', $ref)";
-  echo "$sql<br>";
+  error_log("$sql<br>");
   $result = $conn->query($sql);
   if ($result) {
     $last_id = $conn->insert_id;
-    echo "Table $table created successfully $last_id<br>";
+    error_log("Table $table created successfully $last_id<br>");
   } else {
-    echo "Error creating table: " . $conn->error . "<br>";
+    error_log("Error creating table: " . $conn->error . "<br>");
   }
-  echo "Finished! $last_id<br>";
+  error_log("Finished! $last_id<br>");
   $conn->close();
   return $last_id;
 }
@@ -251,7 +251,7 @@ function get_list_of_admin_email_addr($table="admin_mail")
   $conn->close();
 
   $mail_list = implode(",", $rows);
-  echo "mail_list $mail_list<br>";
+  error_log("mail_list $mail_list<br>");
   return $mail_list;
 }
 
@@ -302,32 +302,32 @@ function populate_evttype_table()
 function adding_new_user($attribute, $value, $user_id)
 {
   $table = "attr";
-  echo "$table $user_id $attribute <br>";
+  error_log("$table $user_id $attribute <br>");
   $conn = connect_db();
   if ($user_id===0) {
-    $conn->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+    $conn->begin_transaction();
     $sql = "SELECT MAX(user_id) as user from $table";
-    echo "$sql <br>";
+    error_log("$sql <br>");
     $result = $conn->query($sql);
     $row = $result->fetch_row();
     if ($row) {
-      echo "--> $row[1] <br>";
+      error_log("--> $row[1] <br>");
       $user_id = $row[0] + 1;
     }
     $result->free();
   }
-  echo "user_id  $user_id<br>";
+  error_log("user_id  $user_id<br>");
   // Adding the new collator_get_attribute
   $sql =  "INSERT INTO $table (user_id, attribute_name, attribute_value)
            VALUES ($user_id, '$attribute', '$value')";
-  echo "$sql<br>";
+  error_log("$sql<br>");
   $result = $conn->query($sql);
   if ($result) {
-    echo "Table $table created successfully";
+    error_log("Table $table created successfully");
   } else {
-    echo "Error creating table: " . $conn->error . "<br>";
+    error_log("Error creating table: " . $conn->error . "<br>");
   }
-  echo "Finished!<br>";
+  error_log("Finished!<br>");
   $conn->commit();
   $conn->close();
   return $user_id;
@@ -335,13 +335,13 @@ function adding_new_user($attribute, $value, $user_id)
 //____________________________________________
 function initial_client_inquiry($user_attr, $client_message){
   // 1. populating attr table
-  echo "1. populating attr table<br>";
+  error_log("1. populating attr table<br>");
 
   $this_event_type = 1;
   $attrCounter = 0;
   $next_user_id = 0;
   foreach($user_attr as $attr_name => $attr_value){
-    echo "initial_client_inquiry $attr_name  $attr_value <br>";
+    error_log("initial_client_inquiry $attr_name  $attr_value <br>");
     if ($attrCounter === 0) {
        $next_user_id =  adding_new_user($attr_name, $attr_value, 0);
     } else {
@@ -360,7 +360,7 @@ function initial_client_inquiry($user_attr, $client_message){
                'host'        => $client_message['host'],
                'ref'         => 0
              );
-  echo "2. populating main table with $user: " . $user['user_id'] . ' '. $user['event_seq'] . "<br>";
+  error_log("2. populating main table with $user: " . $user['user_id'] . ' '. $user['event_seq'] . "<br>");
   $user_id = populating_user_table($user);
   return $user_id;
 }
@@ -371,7 +371,7 @@ function create_table($table='', $schema='')
     $table = 'communications';
   }
   $conn =  connect_db();
-  $conn->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+  $conn->begin_transaction();
   $query = "DROP TABLE IF EXISTS $table";
   if ($conn->query($query) === TRUE) {
     echo "Table $table has been dropped<br>";
@@ -384,7 +384,7 @@ function create_table($table='', $schema='')
   if ($conn->query($query) === TRUE) {
     echo "Table $table created successfully <br>";
   } else {
-    echo "Error creating [$table] table: " . $conn->error . "<br>";
+    error_log("Error creating [$table] table: " . $conn->error . "<br>");
   }
   $conn->commit();
   $conn->close();
