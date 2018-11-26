@@ -56,14 +56,16 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
       print "<input value='Submit' type='submit'>";
     } else {
       if (count($_POST) != 0) {
-        echo count($_POST);
         if (array_key_exists('user_id', $_POST)) {
           require "libview.php";
-          $user_id = $_POST['user_id'];
-          $lastname = $_POST['lastname'];
+          $user_id   = $_POST['user_id'];
+          $lastname  = $_POST['lastname'];
           $firstname = $_POST['firstname'];
-          echo "libview.php<hr>";
-          show_last_seq($user_id, $firstname, $lastname);
+          echo "$user_id, $firstname, $lastname";
+          $rows = get_user_seq($user_id, $firstname, $lastname);
+          if ($rows != NULL) {
+            show_user_seq($user_id, $firstname, $lastname, $rows[0]);
+          }
         } else {
           require "sendMail.php";
         }

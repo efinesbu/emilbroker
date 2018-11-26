@@ -59,6 +59,7 @@ function connect_db()
 }
 //____________________________________________
 function recreate_all_db_tables(){
+  create_admin_mail_table();
   create_user_table();
   create_attribute_table();
   create_evttype_table();
@@ -185,6 +186,75 @@ function create_attribute_table()
   echo "schema $schema <br>";
   create_table("attr", $schema);
 }
+//____________________________________________
+function create_admin_mail_table()
+{
+  $table = "admin_mail";
+  $schema = "UUID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            reg_date TIMESTAMP,  -- message date/time
+            email VARCHAR(40)
+          ";
+  echo "schema $schema <br>";
+  create_table($table, $schema);
+  populate_admin_table($table);
+
+}
+//____________________________________________
+function populate_admin_table($table)
+{
+  echo "Starting repopulating  $table. . . ";
+  $conn =  connect_db();
+
+  // Remove all old data first
+  $sql = "DELETE FROM $table";
+  if ($conn->query($sql) === TRUE) {
+      echo "All record of $table table have been removed successfully<br>";
+  } else {
+      echo "Error: " . $sql . "<br>" . $conn->erro . "<br>";
+  }
+  // Repopulate the table
+  $eventTypes = array("fine@finecomputing.com",
+                      "efinesbu@gmail.com",
+                      "genepanasenko@gmail.com"
+                    );
+
+  foreach ($eventTypes as $id => $mail)
+  {
+    if (filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+      echo "Email address '$mail' is considered valid.\n";
+
+      $sql = "INSERT INTO $table (email)
+              VALUES ('$mail')";
+      if ($conn->query($sql) === TRUE) {
+          echo "New record created successfully: $id, $mail added to $table<br>";
+      } else {
+          echo "Error: " . $sql . "<br>" . $conn->error . "<br>";
+      }
+    } else {
+      die("email address $mail is wrong");
+    }
+  }
+  $conn->close();
+}
+
+//____________________________________________
+function get_list_of_admin_email_addr($table="admin_mail")
+{
+  $conn  = connect_db();
+  $sql = "SELECT * from $table WHERE 1";
+  $result = $conn->query($sql);
+  while($row = $result->fetch_array())
+  {
+    $rows[] = $row['email'];
+  }
+  $result->free();
+  $conn->close();
+
+  $mail_list = implode(",", $rows);
+  echo "mail_list $mail_list<br>";
+  return $mail_list;
+}
+
 //____________________________________________
 function create_evttype_table()
 {
