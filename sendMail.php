@@ -11,7 +11,6 @@ See: https://p10.secure.webhosting.luminate.com/phpmailsetup?ssc=us1
 <body>
 
 <?php
-require 'lib.php';
 $subject   = htmlentities($_POST["subject"]);
 $msg       = htmlentities($_POST["msg"]);
 $firstname = htmlentities($_POST["firstname"]);

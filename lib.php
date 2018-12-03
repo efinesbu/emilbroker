@@ -123,6 +123,22 @@ function select_user_attr($user_id){
   return $rows;
 }
 //____________________________________________
+function select_admin_attr($reviewer_id){
+  $table = "admin_mail";
+
+  $conn  = connect_db();
+  $sql = "SELECT * from $table WHERE uuid = $reviewer_id";
+  $result = $conn->query($sql);
+  $rows = array();
+  while($row = $result->fetch_array())
+  {
+    $rows[] = $row;
+  }
+  $result->free();
+  $conn->close();
+  return $rows;
+}
+//____________________________________________
 function populating_user_table($user){
   error_log("user_id  $user<br>");
   $table = "main";
@@ -192,7 +208,9 @@ function create_admin_mail_table()
   $table = "admin_mail";
   $schema = "UUID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             reg_date TIMESTAMP,  -- message date/time
-            email VARCHAR(40)
+            email VARCHAR(40),
+            first_name VARCHAR(40),
+            last_name VARCHAR(40)
           ";
   echo "schema $schema <br>";
   create_table($table, $schema);
@@ -213,18 +231,20 @@ function populate_admin_table($table)
       echo "Error: " . $sql . "<br>" . $conn->erro . "<br>";
   }
   // Repopulate the table
-  $eventTypes = array("fine@finecomputing.com",
-                      "efinesbu@gmail.com",
-                      "genepanasenko@gmail.com"
+  $eventTypes = array("fine@finecomputing.com" => ['first_name' => "Valeri", 'last_name' => 'Fine'],
+                      "efinesbu@gmail.com" => ['first_name' => "Emil", 'last_name' => 'Fine']
+                      //"genepanasenko@gmail.com"  => ['first_name' => "Gene", 'last_name' => 'Panaseko']
                     );
 
-  foreach ($eventTypes as $id => $mail)
+  foreach ($eventTypes as $mail => $person)
   {
     if (filter_var($mail, FILTER_VALIDATE_EMAIL)) {
       echo "Email address '$mail' is considered valid.\n";
-
-      $sql = "INSERT INTO $table (email)
-              VALUES ('$mail')";
+      $first_name = $person['first_name'];
+      $last_name = $person['last_name'];
+      $sql = "INSERT INTO $table (email, first_name, last_name)
+              VALUES ('$mail', '$first_name', '$last_name')";
+      echo "$sql";
       if ($conn->query($sql) === TRUE) {
           echo "New record created successfully: $id, $mail added to $table<br>";
       } else {

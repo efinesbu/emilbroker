@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <!-- saved from url=(0032)https://finecomputing.com/broker -->
 <html><head id="ctl00_head1"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<?php ini_set('display_errors', 1);
-      require 'google_analytic.php';
+<?php require 'google_analytic.php';
       require 'dialogs.php';
 ?>
 <link type="text/css" rel="stylesheet" href="broker.css" />
@@ -40,28 +39,24 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 <?php require 'our_team.php'; ?>
 <p></p>
 <div class="container">
-  <?php  require "libview.php";
-    if (count($_GET) != 0) {
+  <?php
+    if (count($_GET) > 1) {
       $user_id = $_GET['user_id'];
-      $rows = get_user_attributes($user_id);
-      if ($rows != NULL) {
-        $msg = log_customer($user_id);
-        print "$msg";
-      } else {
-        die("Sorry! No customer has been registered under $user_id yet.<br> Please fix your request or <a href='contact.php'> contact us</a> for assistance");
-      }
+      reviewer_id = $_GET['reviewer_id'];
+      $rows = select_admin_attr($reviewer_id);
+      extract($rows);
+      $msg = wrong_customer_attribuites($user_id);
+      print "$msg";
     } else {
-      $user_id = 0;
-      $user_id_found = array_key_exists('user_id', $_POST);
-      if (count($_POST) != 0)
-      {
-        if ($user_id_found) {
-
-
+      if (count($_POST) != 0) {
+        if (array_key_exists('user_id', $_POST)) {
+          require "libview.php";
+          extract($_POST);
+          /*
           $user_id   = $_POST['user_id'];
           $lastname  = $_POST['lastname'];
           $firstname = $_POST['firstname'];
-
+          */
           $rows = get_user_seq($user_id, $firstname, $lastname);
           if ($rows != NULL) {
             show_user_seq($user_id, $firstname, $lastname, $rows[0]);
@@ -69,13 +64,9 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
         } else {
           require "sendMail.php";
         }
-      } else {
-        $user_id_found = 0;
       }
-      if ($user_id_found === 0)
-      {
-        echo "user_id $user_id : --> [$user_id_found]]";
-        print "<hr><h3>Contact Us: </h3><hr><p></p>";
+      if (!array_key_exists('user_id', $_POST))  {
+        print "<hr><h3>Review : </h3><hr><p></p>";
         $msg = initial_request();
         echo "$msg";
       }
