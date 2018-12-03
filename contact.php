@@ -57,7 +57,6 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
       {
         if ($user_id_found) {
 
-
           $user_id   = $_POST['user_id'];
           $lastname  = $_POST['lastname'];
           $firstname = $_POST['firstname'];
