@@ -40,7 +40,7 @@ if ($subject != '' and $msg!='') {
     "host"    => $_SERVER['REMOTE_ADDR']
   );
   $user_id = initial_client_inquiry($user_attr, $user_message);
-  $msg = "We have gotten a message: '$msg' from client: $firstname $lastname. The client was registered as #$user_id from $location location.";
+  $msg = "We have gotten a message: '$msg' from customer: $firstname $lastname. The client was registered as #$user_id from $location location. Please attend https://www.finecomputing.com/consulting/contact_admin.php?user_id=$user_id&adviser_id=1 to review this request";
   $email = get_list_of_admin_email_addr();
   if ($firstname != 'test') {
     mail($email, "Test message from $location: " . $subject, $msg);
