@@ -2,7 +2,7 @@
 <!-- saved from url=(0032)https://finecomputing.com/broker -->
 <html><head id="ctl00_head1"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <?php require 'google_analytic.php';
-      require 'dialogs.php';
+require 'dialogs.php';
 ?>
 <link type="text/css" rel="stylesheet" href="broker.css" />
 
@@ -32,43 +32,59 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 </div>
 
 <div class="center">
-	<h2>Contact Private NYC <a title="Off-Market Properties Aren't Listed" href="aboutoffmarket.php">Off-Market</a>
-    Real Estate (OMRE) Advisors</h2>
+	<h2>Custiomer's Order Review Request.</h2>
   <?php require 'site_top_menu.php'; ?>
 </div>
-<?php require 'our_team.php'; ?>
-<p></p>
+
 <div class="container">
-  <?php
-    if (count($_GET) > 1) {
-      $user_id = $_GET['user_id'];
-      reviewer_id = $_GET['reviewer_id'];
-      $rows = select_admin_attr($reviewer_id);
-      extract($rows);
-      $msg = wrong_customer_attribuites($user_id);
-      print "$msg";
+  <?php require "libview.php";
+    if (count($_GET) > 1 ) {
+        if (!array_key_exists('user_id', $_GET)) {
+          die("wrong HTML request");
+        }
+        $user_id = htmlentities($_GET['user_id']);
+        if (array_key_exists('reviewer_id', $_GET)) {
+          $reviewer_id = htmlentities($_GET['reviewer_id']);
+        } else {
+          $reviewer_id = 0;
+        }
+        $adminRows = select_admin_attr($reviewer_id);
+        extract($adminRows);
+        $customerRows = get_user_attributes($user_id);
+        extract($customerRows);
+        $mainRows = get_user_seq($user_id, $FirstName, $LastName);
+        if (!empty($mainRows)) {
+          $customer = $mainRows[0];
+          $adviser = $adminRows[0];
+          $msg = user_request_to_review($user_id, $FirstName, $LastName, $customer, $adviser);
+          print "$msg<hr>";
+
+          $msg = "<div class='container'>";
+          $msg .= adviser_comment($user_id, $customer, $adviser) . "</div>";
+          print "$msg";
+
+      } else {
+        die("no user record has been found");
+      }
     } else {
-      if (count($_POST) != 0) {
-        if (array_key_exists('user_id', $_POST)) {
-          require "libview.php";
-          extract($_POST);
-          /*
-          $user_id   = $_POST['user_id'];
-          $lastname  = $_POST['lastname'];
-          $firstname = $_POST['firstname'];
-          */
-          $rows = get_user_seq($user_id, $firstname, $lastname);
-          if ($rows != NULL) {
-            show_user_seq($user_id, $firstname, $lastname, $rows[0]);
+      if (!empty($_POST)) {
+        if (array_key_exists('comment', $_POST)) {
+          $junk = NULL;
+          if (array_key_exists('junk', $_POST)) {
+            $junk = htmlentities($_POST['junk']);
+          }
+          $user_id = htmlentities($_POST['user_id']);
+          $adviser_id = htmlentities($_POST['adviser_id']);
+          $event_type = htmlentities($_POST['event_type']);
+          $comment = htmlentities($_POST['comment']);
+          $customerRows = get_user_attributes($user_id);
+          if ($customerRows != NULL and $junk != 'junk') {
+            $user_id = follow_up_adviser_comment($user_id, $adviser_id, $comment);
+            echo "Adviser $adviser_id review for customer $user_id has been recorded<br>";
           }
         } else {
-          require "sendMail.php";
+          die("Wrong request!");
         }
-      }
-      if (!array_key_exists('user_id', $_POST))  {
-        print "<hr><h3>Review : </h3><hr><p></p>";
-        $msg = initial_request();
-        echo "$msg";
       }
       print '</div>';
       print '<p></p>';

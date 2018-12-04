@@ -67,10 +67,11 @@ function recreate_all_db_tables(){
 //____________________________________________
 function calculate_seq_per_user($user_id, $event_type){
   $table = "main";
-  $conn =  connect_db();
+  $conn = connect_db();
   $conn->begin_transaction();
   $sql = "SELECT MAX(event_seq) as seq from $table
-                WHERE user_id=$user_id AND event_type=$event_type";
+                WHERE user_id=$user_id";
+                //WHERE user_id=$user_id AND event_type=$event_type";
   error_log("calculate_seq_per_use: $sql <br>");
   $result = $conn->query($sql);
   $row = $result->fetch_array();
@@ -151,12 +152,20 @@ function populating_user_table($user){
   $message    = $user['message'];
   $subject    = $user['subject'];
   $host       = $user['host'];
-  $ref        = $user['ref'];
+
+  $ref = 'NULL';
+  if (array_key_exists('ref', $user)) {
+      $ref  = $user['ref'];
+  }
+  $adviser_id  = 'NULL';
+  if (array_key_exists('adviser_id', $user)) {
+      $adviser_id  = $user['adviser_id'];
+  }
 
   // Adding the new collator_get_attribute
-  $sql =  "INSERT INTO $table (event_type, user_id, event_seq, subject, message, host, ref)
+  $sql =  "INSERT INTO $table (event_type, user_id, event_seq, subject, message, host, ref, adviser_id)
            VALUES ($event_type,  $user_id,  $event_seq,
-                   '$subject', '$message', '$host', $ref)";
+                   '$subject', '$message', '$host', $ref, $adviser_id)";
   error_log("$sql<br>");
   $result = $conn->query($sql);
   if ($result) {
@@ -177,6 +186,7 @@ function create_user_table()
             reg_date TIMESTAMP,  -- message date/time
             event_type INT(6)  UNSIGNED NOT NULL, -- event type from
             user_id INT(6) UNSIGNED NOT NULL, -- user id
+            adviser_id INT(6) UNSIGNED, -- adviser id NULL means self
             event_seq  INT(6)  UNSIGNED NOT NULL, -- seq for user id
             subject VARCHAR(4000) NOT NULL, -- user's message
             message VARCHAR(4000) NOT NULL, -- user's message
@@ -377,14 +387,54 @@ function initial_client_inquiry($user_attr, $client_message){
                'event_seq'   => $next_event_seq,
                'message'     => $client_message['message'],
                'subject'     => $client_message['subject'],
-               'host'        => $client_message['host'],
-               'ref'         => 0
+               'host'        => $client_message['host']
+               //'ref'         => 0
              );
   error_log("2. populating main table with $user: " . $user['user_id'] . ' '. $user['event_seq'] . "<br>");
   $user_id = populating_user_table($user);
   return $user_id;
 }
-//____________________________________________
+//_______________________________________________________________
+function calculate_ref_event_id($user_id)
+{
+    $conn = connect_db();
+    $table = "main";
+    $conn = connect_db();
+    $conn->begin_transaction();
+    $sql = "SELECT MIN(event_id) as id from $table
+                  WHERE user_id=$user_id";
+    error_log("calculate_seq_per_use: $sql <br>");
+    $result = $conn->query($sql);
+    $row = $result->fetch_array();
+    $event_id  = 0;
+    if ($row) {
+      $event_id = $row[0];
+      error_log("--> row = $row[1] event_id= $event_id<br>");
+    }
+    $result->free();
+    $conn->close();
+    return $event_id;
+}
+//_______________________________________________________________
+function follow_up_adviser_comment($user_id, $adviser_id, $comment)
+{
+  $next_event_seq = calculate_seq_per_user($user_id, NULL);
+  $event_id = calculate_ref_event_id($user_id);
+  $this_event_type = 2;
+  $host =  $_SERVER['REMOTE_ADDR'];
+  $user = array('event_type' => $this_event_type,
+               'user_id'     => $user_id,
+               'event_seq'   => $next_event_seq,
+               'message'     => $comment,
+               'subject'     => "adviser review",
+               'host'        => $host,
+               'adviser_id'  => $adviser_id,
+               'ref'         => $event_id
+             );
+  $user_id = populating_user_table($user);
+  return $user_id;
+}
+//_______________________________________________________________
 function create_table($table='', $schema='')
 {
   if ($table == '') {

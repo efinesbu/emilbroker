@@ -46,10 +46,11 @@ function initial_request($action  ='contact.php', $readonly=false,
 
       <label for='Message'>Message</label><span class='error'>*
       <textarea id='msg' name='msg' placeholder='$msg' required style='height:100px'$readonly></textarea>
-
-    <input value='Submit' type='submit'>
-    </form>
 EOD;
+if ($readonly != 'readony'){
+    $msg .= "<input value='Submit' type='submit'>";
+  }
+  $msg .= "</form>";
 return $msg;
 }
 //_______________________________________________________________
@@ -75,5 +76,48 @@ $msg = <<<EOD
   </form>
 EOD;
 return $msg;
+}
+
+
+//_______________________________________________________________
+function user_request_to_review($user_id, $firstname, $lastname, $main_row, $reviewer)
+{
+  extract($main_row);
+  extract($reviewer);
+  $msg = '';
+  if ($event_type == 1) {
+    $msg .= <<<EOD
+    <p>Dear $first_name $last_name!
+    <p>On $reg_date we received $firstname $lastname's request to assist on<br>
+    <center><cite>Subject: ' . . . $subject . . . '</cite></center>
+    <p>The customer wants us:<br>
+    <center><cite>'$mgs'</cite></center>
+    <p>Please evaluate this request and  provide your prompt response in the comment field below.
+    <p>Truly yours, FineAssociates.
+EOD;
+  }
+  return $msg;
+}
+
+//_______________________________________________________________
+function adviser_comment($user_id, $customer, $adviser, $action='contact_admin.php')
+{
+  extract($customer);
+  extract($adviser);
+  $msg = <<<EOD
+    <form action='$action', method='post'>
+      <label title='Check "junk box" to mark  the customer message as junk'>Junk:</label>
+      <input type='checkbox' id='junk' name='junk' value='junk' title='Check "junk box" to mark  the customer message as junk'>
+      <br>
+      <label for='comment'>Adviser's Comment</label>
+      <textarea id='comment' name='comment' placeholder="Type your review of the cusrtomer's request  here."
+      style='height:160px' type='text'></textarea>
+      <input type="hidden" id="user_id" name="user_id" value="$user_id">
+      <input type="hidden" id="adviser_id" name="adviser_id" value="$UUID">
+      <input type="hidden" id="event_type" name="event_type" value="$event_type">
+    <input value='Submit' type='submit'>
+    </form>
+EOD;
+  return $msg;
 }
 ?>

@@ -42,7 +42,7 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 <div class="container">
   <?php  require "libview.php";
     if (count($_GET) != 0) {
-      $user_id = $_GET['user_id'];
+      $user_id = htmlentities($_GET['user_id']);
       $rows = get_user_attributes($user_id);
       if ($rows != NULL) {
         $msg = log_customer($user_id);
@@ -57,9 +57,9 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
       {
         if ($user_id_found) {
 
-          $user_id   = $_POST['user_id'];
-          $lastname  = $_POST['lastname'];
-          $firstname = $_POST['firstname'];
+          $user_id   = htmlentities($_POST['user_id']);
+          $lastname  = htmlentities($_POST['lastname']);
+          $firstname = htmlentities($_POST['firstname']);
 
           $rows = get_user_seq($user_id, $firstname, $lastname);
           if ($rows != NULL) {
@@ -73,7 +73,6 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
       }
       if ($user_id_found === 0)
       {
-        echo "user_id $user_id : --> [$user_id_found]]";
         print "<hr><h3>Contact Us: </h3><hr><p></p>";
         $msg = initial_request();
         echo "$msg";
