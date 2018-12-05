@@ -47,23 +47,53 @@ function show_review_page($user_id, $firstname, $lastname, $main_row){
 //___________________________________________________________
 function show_user_seq($user_id, $firstname, $lastname, $main_row){
   extract($main_row);
-  if ($event_type == 1) {
-    print "
-    <div class='container'>
-    <p>Dear $firstname $lastname!
-    <p>On $reg_date we received your request to assist you on<br>
-    <center><cite>Subject: ' . . . $subject . . . '</cite></center>
-    <p>Our experts are analyzing how we can meet your order.
-    We are appologize, but at this time they have not provided any response yet.
-    <p>The update of your order will be posted <a href='contact.php?user_id=$user_id'>here</a>
-    <p>Please, visit us later.
-    <p>Truly yours, FineAssociates.
-    </div>
-    ";
-  } else {
-    foreach($main_row as $k => $v) {
-        echo "show_last_seq $user_id, $firstname, $lastname: $k => $v<br>";
-    }
+  switch ($event_type)  {
+    case 1: // Initial request
+      $msg = <<<EOD
+        <div class='container'>
+        <p>Dear $firstname $lastname!
+        <p>On $reg_date we received your request to assist you on<br>
+        <center><cite>Subject: ' . . . $subject . . . '</cite></center>
+        <p>Our experts are analyzing how we can meet your order.
+        We are appologize, but at this time they have not provided any response yet.
+        <p>The update of your order will be posted <a href='contact.php?user_id=$user_id'>here</a>
+        <p>Please, visit us later.
+        <p>Truly yours, FineAssociates.
+        </div>
+EOD;
+      print $msg;
+      break;
+    case 2: // Show adviser's comment
+      $reviewDate = $reg_date;
+      $reviewMessage = $message;
+      $adviserId =  $adviser_id;
+      $m =  print_r($main_row, $return = true);
+      print $m . "<br>";
+      $eventRow = select_user_event($ref);
+      if (!empty($eventRow)) {
+        extract($eventRow[0]);
+      }
+      $m =  print_r($eventRow, $return = true);
+      print $m . "<br>";
+
+      print "
+        <div class='container'>
+        <p>Dear $firstname $lastname!
+        <p>On $reviewDate our adviser reviewed your request as of $reg_date to assist you on<br>
+        <center><cite>Subject: ' . . . $subject . . . '</cite></center>
+        <p>To move on our adviser recommends:
+        <p><hr><cite>$reviewMessage</cite><hr>
+        <p>Please, review the adviser's  response carefully and fill the 'comment' section below to address the review.
+        <p>The update of your order will be posted <a href='contact.php?user_id=$user_id'>here</a>
+        <p>Please, visit us later.
+        <p>Truly yours, FineAssociates.
+        </div>
+        ";
+      break;
+    case 999:
+      foreach($main_row as $k => $v) {
+          echo "show_last_seq $user_id, $firstname, $lastname: $k => $v<br>";
+      }
   }
 }
 //___________________________________________________________

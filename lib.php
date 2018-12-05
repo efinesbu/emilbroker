@@ -77,7 +77,7 @@ function calculate_seq_per_user($user_id, $event_type){
   $row = $result->fetch_array();
   $event_seq  = 1;
   if ($row) {
-    $event_seq = $row[0] + 1;
+    $event_seq = $row[0];
     error_log("--> row = $row[1] event_seq= $event_seq<br>");
   }
   $result->free();
@@ -109,6 +109,21 @@ function select_user($user_id, $event_seq=0){
   return $rows;
 }
 //____________________________________________
+function select_user_event($event_id){
+  $table = "main";
+  $conn  = connect_db();
+  $sql = "SELECT * from $table WHERE event_id = $event_id";
+  $result = $conn->query($sql);
+
+  while($row = $result->fetch_array())
+  {
+    $rows[] = $row;
+  }
+  $result->free();
+  $conn->close();
+  return $rows;
+}
+//____________________________________________
 function select_user_attr($user_id){
   $table = "attr";
   $conn  = connect_db();
@@ -129,6 +144,7 @@ function select_admin_attr($reviewer_id){
 
   $conn  = connect_db();
   $sql = "SELECT * from $table WHERE uuid = $reviewer_id";
+  error_log("select_admin_attr: sql $table:  $sql");
   $result = $conn->query($sql);
   $rows = array();
   while($row = $result->fetch_array())
@@ -137,6 +153,8 @@ function select_admin_attr($reviewer_id){
   }
   $result->free();
   $conn->close();
+  $log = print_r($rows, $return=true);
+  error_log("select_admin_attr: $log");
   return $rows;
 }
 //____________________________________________
@@ -384,25 +402,25 @@ function initial_client_inquiry($user_attr, $client_message){
 
   $user = array('event_type' => $this_event_type,
                'user_id'     => $next_user_id,
-               'event_seq'   => $next_event_seq,
+               'event_seq'   => $next_event_seq + 1,
                'message'     => $client_message['message'],
                'subject'     => $client_message['subject'],
                'host'        => $client_message['host']
                //'ref'         => 0
              );
   error_log("2. populating main table with $user: " . $user['user_id'] . ' '. $user['event_seq'] . "<br>");
-  $user_id = populating_user_table($user);
-  return $user_id;
+  $last_id = populating_user_table($user);
+  return $user['user_id'];
 }
 //_______________________________________________________________
-function calculate_ref_event_id($user_id)
+function calculate_ref_event_id($user_id, $event_seq)
 {
     $conn = connect_db();
     $table = "main";
     $conn = connect_db();
     $conn->begin_transaction();
-    $sql = "SELECT MIN(event_id) as id from $table
-                  WHERE user_id=$user_id";
+    $sql = "SELECT event_id as id from $table
+                  WHERE user_id=$user_id and event_seq=$event_seq";
     error_log("calculate_seq_per_use: $sql <br>");
     $result = $conn->query($sql);
     $row = $result->fetch_array();
@@ -419,20 +437,20 @@ function calculate_ref_event_id($user_id)
 function follow_up_adviser_comment($user_id, $adviser_id, $comment)
 {
   $next_event_seq = calculate_seq_per_user($user_id, NULL);
-  $event_id = calculate_ref_event_id($user_id);
+  $event_id = calculate_ref_event_id($user_id, $next_event_seq);
   $this_event_type = 2;
   $host =  $_SERVER['REMOTE_ADDR'];
   $user = array('event_type' => $this_event_type,
                'user_id'     => $user_id,
-               'event_seq'   => $next_event_seq,
+               'event_seq'   => $next_event_seq +1 ,
                'message'     => $comment,
                'subject'     => "adviser review",
                'host'        => $host,
                'adviser_id'  => $adviser_id,
                'ref'         => $event_id
              );
-  $user_id = populating_user_table($user);
-  return $user_id;
+  $last_id = populating_user_table($user);
+  return $last_id;
 }
 //_______________________________________________________________
 function create_table($table='', $schema='')

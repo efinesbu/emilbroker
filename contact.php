@@ -63,7 +63,15 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 
           $rows = get_user_seq($user_id, $firstname, $lastname);
           if ($rows != NULL) {
-            show_user_seq($user_id, $firstname, $lastname, $rows[0]);
+            $rows = $rows[0];
+            show_user_seq($user_id, $firstname, $lastname, $rows);
+            if ($event_type == 2){
+              $event_type = $rows['event_type'];
+              $adviser_id = $rows['adviser_id'];
+              $msg = customer_followup_request($user_id, $adviser_id);
+              print $msg;
+            }
+
           }
         } else {
           require "sendMail.php";
