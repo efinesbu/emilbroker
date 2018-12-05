@@ -68,13 +68,13 @@ EOD;
       $reviewMessage = $message;
       $adviserId =  $adviser_id;
       $m =  print_r($main_row, $return = true);
-      print $m . "<br>";
+      error_log($m . "<br>");
       $eventRow = select_user_event($ref);
       if (!empty($eventRow)) {
         extract($eventRow[0]);
       }
       $m =  print_r($eventRow, $return = true);
-      print $m . "<br>";
+      error_log($m . "<br>");
 
       print "
         <div class='container'>
@@ -90,6 +90,20 @@ EOD;
         </div>
         ";
       break;
+    case 3:
+      $msg = <<<EOD
+        <div class='container'>
+        <p>Dear $firstname $lastname!
+        <p>On $reg_date we received your followup comment <br>
+        <center><cite>Subject: ' . . . $subject . . . '</cite></center>
+        <p>Our experts are analyzing tour message to see what could our next step.
+        <p>The update of your order will be posted <a href='contact.php?user_id=$user_id'>here</a>
+        <p>Please, visit us later.
+        <p>Truly yours, FineAssociates.
+        </div>
+EOD;
+    print $msg;
+          break;
     case 999:
       foreach($main_row as $k => $v) {
           echo "show_last_seq $user_id, $firstname, $lastname: $k => $v<br>";
@@ -97,12 +111,12 @@ EOD;
   }
 }
 //___________________________________________________________
-function show_user_request_to_review($user_id, $firstname, $lastname, $main_row, $reviewer_id){
+function show_user_request_to_review($user_id, $firstname, $lastname, $main_row, $adviser_id){
   extract($main_row);
   if ($event_type == 1) {
     print "
     <div class='container'>
-    <p>Dear $reviewer_id!
+    <p>Dear $adviser_id!
     <p>On $reg_date we received $firstname $lastname's request to assist on<br>
     <center><cite>Subject: ' . . . $subject . . . '</cite></center>
     <p>The customer wants us:<br>

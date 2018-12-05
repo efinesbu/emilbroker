@@ -60,18 +60,34 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
           $user_id   = htmlentities($_POST['user_id']);
           $lastname  = htmlentities($_POST['lastname']);
           $firstname = htmlentities($_POST['firstname']);
-
+          $m = print_r($_POST, $return=true);
+          error_log("POST = ". $m . "</br>");
+          $requestEventType = NULL;
+          if (array_key_exists('event_type', $_POST)) {
+            $requestEventType = htmlentities($_POST['event_type']);
+          }
           $rows = get_user_seq($user_id, $firstname, $lastname);
           if ($rows != NULL) {
             $rows = $rows[0];
-            show_user_seq($user_id, $firstname, $lastname, $rows);
-            if ($event_type == 2){
+            $event_type = $rows['event_type'];
+            error_log("event_type=$event_type : [$requestEventType]</br>");
+            if ($requestEventType == 3 ) {
+              $rows['event_type'] = $requestEventType;
+              save_user_comment($user_id, $firstname, $lastname, $rows, $_POST);
+              sendMail($_POST);
+            } else {
+              show_user_seq($user_id, $firstname, $lastname, $rows);
               $event_type = $rows['event_type'];
-              $adviser_id = $rows['adviser_id'];
-              $msg = customer_followup_request($user_id, $adviser_id);
-              print $msg;
+              if ($event_type == 2){
+                $m  = print_r($rows, $return=true);
+                error_log($m . "</br>");
+                $adviser_id = $rows['adviser_id'];
+                $lastname = $rows['LastName'];
+                $firstname = $rows['FirstName'];
+                $msg = customer_followup_request($user_id, $adviser_id, $firstname, $lastname);
+                print $msg;
+              }
             }
-
           }
         } else {
           require "sendMail.php";

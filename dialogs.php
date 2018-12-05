@@ -54,7 +54,8 @@ if ($readonly != 'readony'){
 return $msg;
 }
 //_______________________________________________________________
-function customer_followup_request($user_id, $reviewer_id,
+function customer_followup_request($user_id, $adviser_id,
+                        $firstname, $lastname,
                         $action  ='contact.php', $readonly=false,
                         $msg = "Provide your comments on the our adviser's review")
 {
@@ -69,7 +70,9 @@ function customer_followup_request($user_id, $reviewer_id,
       <label for='Message'>Comment</label><span class='error'>*
       <textarea id='msg' name='msg' placeholder='$msg' required style='height:100px'$readonly></textarea>
       <input type="hidden" id="user_id" name="user_id" value="$user_id">
-      <input type="hidden" id="reviewer_id" name="reviewer_id" value="$reviewer_id">
+      <input type="hidden" id="lastname" name="lastname" value="$lastname">
+      <input type="hidden" id="firstname" name="firstname" value="$firstname">
+      <input type="hidden" id="adviser_id" name="adviser_id" value="$adviser_id">
       <input type="hidden" id="event_type" name="event_type" value="$event_type">
       <input type="hidden" id="subject" name="subject" value="Customer Followup Comment">
 EOD;
@@ -140,7 +143,7 @@ function adviser_comment($user_id, $customer, $adviser, $action='contact_admin.p
       <textarea id='comment' name='comment' placeholder="Type your review of the cusrtomer's request  here."
       style='height:160px' type='text'></textarea>
       <input type="hidden" id="user_id" name="user_id" value="$user_id">
-      <input type="hidden" id="reviewer_id" name="reviewer_id" value="$UUID">
+      <input type="hidden" id="adviser_id" name="adviser_id" value="$UUID">
       <input type="hidden" id="event_type" name="event_type" value="$event_type">
     <input value='Submit' type='submit'>
     </form>

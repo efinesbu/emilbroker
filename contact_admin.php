@@ -43,19 +43,18 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
           die("wrong HTML request");
         }
         $user_id = htmlentities($_GET['user_id']);
-        if (array_key_exists('reviewer_id', $_GET)) {
-          $reviewer_id = htmlentities($_GET['reviewer_id']);
+        if (array_key_exists('adviser_id', $_GET)) {
+          $adviser_id = htmlentities($_GET['adviser_id']);
         } else {
-          $reviewer_id = 0;
+          $adviser_id = 0;
         }
-        $adminRows = select_admin_attr($reviewer_id);
-        extract($adminRows);
+        $adminRows = select_admin_attr($adviser_id);
         $customerRows = get_user_attributes($user_id);
         extract($customerRows);
         $mainRows = get_user_seq($user_id, $FirstName, $LastName);
         if (!empty($mainRows)) {
           $customer = $mainRows[0];
-          $adviser = $adminRows[0];
+          $adviser = $adminRows;
           $msg = user_request_to_review($user_id, $FirstName, $LastName, $customer, $adviser);
           print "$msg<hr>";
 
@@ -79,7 +78,7 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
           $comment = htmlentities($_POST['comment']);
           $customerRows = get_user_attributes($user_id);
           if ($customerRows != NULL and $junk != 'junk') {
-            $user_id = follow_up_adviser_comment($user_id, $adviser_id, $comment);
+            $last_id = follow_up_adviser_comment($user_id, $adviser_id, $comment);
             echo "Adviser $adviser_id review for customer $user_id has been recorded<br>";
           }
         } else {

@@ -139,11 +139,11 @@ function select_user_attr($user_id){
   return $rows;
 }
 //____________________________________________
-function select_admin_attr($reviewer_id){
+function select_admin_attr($adviser_id){
   $table = "admin_mail";
 
   $conn  = connect_db();
-  $sql = "SELECT * from $table WHERE uuid = $reviewer_id";
+  $sql = "SELECT * from $table WHERE uuid = $adviser_id";
   error_log("select_admin_attr: sql $table:  $sql");
   $result = $conn->query($sql);
   $rows = array();
@@ -155,10 +155,14 @@ function select_admin_attr($reviewer_id){
   $conn->close();
   $log = print_r($rows, $return=true);
   error_log("select_admin_attr: $log");
+  if (!empty($rows)) {
+    $rows = $rows[0];
+  }
   return $rows;
 }
 //____________________________________________
-function populating_user_table($user){
+function populating_user_table($user)
+{
   error_log("user_id  $user<br>");
   $table = "main";
   $conn =  connect_db();
@@ -179,7 +183,6 @@ function populating_user_table($user){
   if (array_key_exists('adviser_id', $user)) {
       $adviser_id  = $user['adviser_id'];
   }
-
   // Adding the new collator_get_attribute
   $sql =  "INSERT INTO $table (event_type, user_id, event_seq, subject, message, host, ref, adviser_id)
            VALUES ($event_type,  $user_id,  $event_seq,
@@ -346,6 +349,27 @@ function populate_evttype_table()
   }
   $conn->close();
 }
+
+//______________________________________________________________
+function save_user_comment($user_id, $firstname, $lastname, $user, $post){
+  $m = print_r($user, $return=true);
+  error_log('save_user_comment: '. $m . "</br>");
+  extract($user);
+  $next_event_seq = calculate_seq_per_user($user_id, $event_type);
+
+  $user = array('event_type' => $event_type,
+               'user_id'     => $user_id,
+               'event_seq'   => $next_event_seq + 1,
+               'message'     => $post['msg'],
+               'subject'     => $post['subject'],
+               'host'        => $host,
+               'ref'         => $ref
+             );
+  error_log("2. populating main table with $user: " . $user['user_id'] . ' '. $user['event_seq'] . "<br>");
+  $last_id = populating_user_table($user);
+  return $user['user_id'];
+
+}
 //_________________________________________________
 function adding_new_user($attribute, $value, $user_id)
 {
@@ -406,7 +430,6 @@ function initial_client_inquiry($user_attr, $client_message){
                'message'     => $client_message['message'],
                'subject'     => $client_message['subject'],
                'host'        => $client_message['host']
-               //'ref'         => 0
              );
   error_log("2. populating main table with $user: " . $user['user_id'] . ' '. $user['event_seq'] . "<br>");
   $last_id = populating_user_table($user);
@@ -477,4 +500,58 @@ function create_table($table='', $schema='')
   $conn->commit();
   $conn->close();
 }
+
+//_______________________________________________________________
+function sendMail($user){
+  $subject   = htmlentities($user["subject"]);
+  $msg       = htmlentities($user["msg"]);
+  $firstname = htmlentities($user["firstname"]);
+  $lastname  = htmlentities($user["lastname"]);
+  if ($lastname == ''  and $firstname == '') {
+    $firstname = "Customer";
+  }
+  $adviser_id = 1;
+  if (array_key_exists('adviser_id', $user)) {
+    $adviser_id = htmlentities($user['adviser_id']);
+  }
+  $adviser = select_admin_attr($adviser_id);
+
+  if ($subject != '' and $msg!='') {
+    $eLog="/logs/emailError.log";
+
+    //Get the size of the error log
+    //ensure it exists, create it if it doesn't
+    $fh= fopen($eLog, "a+");
+    fclose($fh);
+    $originalsize = filesize($eLog);
+    $location =  $_SERVER['REMOTE_ADDR'];
+    $msg = "We have gotten a message: '$msg' from customer: $firstname $lastname. The customer was registered as #$user_id from $location location. Please attend https://www.finecomputing.com/consulting/contact_admin.php?user_id=$user_id&adviser_id=$adviser_id to review this request";
+    $email = get_list_of_admin_email_addr();
+    if ($firstname != 'test') {
+      mail($email, "Test message from $location: " . $subject, $msg);
+    }
+
+    //
+    // NOTE: PHP caches file status so we need to clear
+    // that cache so we can get the current file size
+    //
+
+    clearstatcache();
+    $finalsize = filesize($eLog);
+
+    //Check if the error log was just updated
+    if ($originalsize != $finalsize) {
+      print "Problem sending mail. (size was $originalsize, now $finalsize) See $eLog";
+      print "$msg";
+    } else {
+      $dt = date(DATE_RFC2822);
+      print "Dear $firstname $lastname! <br>";
+      print "On $dt we received your new $subject.  <br>";
+      print "Your comment has been forwarded to our adviser to address. <br>";
+      print "<p>You may check your request status here: <a href='contact.php?user_id=$user_id'>contact.php?user_id=$user_id'</a>. <p> Please, bookmark, and use it to track our progress.";
+      print "<hr>Truly yours, FineAssociates.  <br>";
+    }
+  }
+}
+
 ?>
