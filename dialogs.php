@@ -137,7 +137,7 @@ function adviser_comment($user_id, $customer, $adviser, $action='contact_admin.p
       <input type='checkbox' id='junk' name='junk' value='junk' title='Check "junk box" to mark  the customer message as junk'>
       <br>
       <label for='comment'>Adviser's Comment</label>
-      <textarea id='comment' name='comment' placeholder="Type your review of the cusrtomer's request  here."
+      <textarea id='comment' name='comment' placeholder="Type your review of the customer's request  here."
       style='height:160px' type='text'></textarea>
       <input type="hidden" id="user_id" name="user_id" value="$user_id">
       <input type="hidden" id="reviewer_id" name="reviewer_id" value="$UUID">
