@@ -40,10 +40,16 @@ if ($subject != '' and $msg!='') {
     "host"    => $_SERVER['REMOTE_ADDR']
   );
   $user_id = initial_client_inquiry($user_attr, $user_message);
-  $msg = "We have gotten a message: '$msg' from customer: $firstname $lastname. The customer was registered as #$user_id from $location location. Please attend https://www.finecomputing.com/consulting/contact_admin.php?user_id=$user_id&adviser_id=1 to review this request";
-  $email = get_list_of_admin_email_addr();
   if ($firstname != 'test') {
-    mail($email, "Test message from $location: " . $subject, $msg);
+    $emails = get_list_of_admin_email_addr();
+    foreach($emails as  $id => $adviser) {
+      $adviserFirstName = $adviser['first_name'];
+      $adviserLastName = $adviser['last_name'];
+      $email = $adviser['email'];
+      $adviserId = $adviser['UUID'];
+      $mailBody = "Dear $adviserFirstName $adviserLastName! <br> We have gotten a message: '$msg' from customer: $firstname $lastname. The customer was registered as #$user_id from http://ip-api.com/#$location $location location. Please attend https://www.finecomputing.com/consulting/contact_admin.php?user_id=$user_id&adviser_id=$adviserId to review this request";
+      mail($email, "Test message from $location: " . $subject, $mailBody);
+    }
   }
 
   /*

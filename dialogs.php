@@ -114,19 +114,38 @@ function user_request_to_review($user_id, $firstname, $lastname, $main_row, $rev
 {
   extract($main_row);
   if (!empty($reviewer)) {extract($reviewer);}
-  $msg = '';
-  if ($event_type == 1) {
-    $msg .= <<<EOD
-    <p>Dear $first_name $last_name!
-    <p>On $reg_date we received $firstname $lastname's request to assist on<br>
-    <center><cite>Subject: ' . . . $subject . . . '</cite></center>
-    <p>The customer wants us:<br>
-    <center><cite>'$mgs'</cite></center>
-    <p>Please evaluate this request and  provide your prompt response in the comment field below.
-    <p>Truly yours, FineAssociates.
+  $requestType = "no option for request type: $event_type has been implemenyed yet. Commumicate  Dev group, please.";
+  $response  = "<p>Dear $first_name $last_name! $requestType";
+  switch ($event_type) {
+    case 1:
+      $requestType =  "request to assist on";
+      $response = <<<EOD
+      $event_type
+      <p>Dear $first_name $last_name!
+      <p>On $reg_date we received $firstname $lastname's $requestType<br>
+      <center><cite>Subject: ' . . . $subject . . . '</cite></center>
+      <p>The customer wants us:<br>
+      <center><cite>'$message'</cite></center>
+      <p>Please evaluate this request and provide your prompt response in the comment field below.
+      <p>Truly yours, FineAssociates.
 EOD;
+    break;
+    case 2:
+    case 3:
+      $requestType = "followup comment on our adviser review of";
+      $response = <<<EOD
+      $event_type
+      <p>Dear $first_name $last_name!
+      <p>On $reg_date we received $firstname $lastname's $requestType<br>
+      <center><cite>Subject: ' . . . $subject . . . '</cite></center>
+      <p>The customer  has checked our comment and replied:<br>
+      <center><cite>'$message'</cite></center>
+      <p>Please evaluate this comment and  provide your prompt response in the comment field below.
+      <p>Truly yours, FineAssociates.
+EOD;
+    break;
   }
-  return $msg;
+  return $response;
 }
 
 //_______________________________________________________________

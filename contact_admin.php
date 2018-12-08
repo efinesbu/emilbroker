@@ -79,7 +79,7 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
           $customerRows = get_user_attributes($user_id);
           if ($customerRows != NULL and $junk != 'junk') {
             $last_id = follow_up_adviser_comment($user_id, $adviser_id, $comment);
-            echo "Adviser $adviser_id review for customer $user_id has been recorded<br>";
+            echo "Adviser $adviser_id review for customer $user_id has been recorded as $last_id<br>";
           }
         } else {
           die("Wrong request!");

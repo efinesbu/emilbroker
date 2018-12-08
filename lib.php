@@ -128,14 +128,16 @@ function select_user_attr($user_id){
   $table = "attr";
   $conn  = connect_db();
   $sql = "SELECT * from $table WHERE user_id = $user_id";
+  error_log("select_user_attr: sql $table:  $sql");
+  $rows = array();
   $result = $conn->query($sql);
-
-  while($row = $result->fetch_array())
-  {
-    $rows[] = $row;
-  }
-  $result->free();
-  $conn->close();
+  if ($result)
+    while($row = $result->fetch_array())
+    {
+      $rows[] = $row;
+    }
+    $result->free();
+    $conn->close();
   return $rows;
 }
 //____________________________________________
@@ -171,8 +173,8 @@ function populating_user_table($user)
   $event_type = $user['event_type'];
   $user_id    = $user['user_id'];
   $event_seq  = $user['event_seq'];
-  $message    = $user['message'];
-  $subject    = $user['subject'];
+  $message    = $conn->escape_string($user['message']);
+  $subject    = $conn->escape_string($user['subject']);
   $host       = $user['host'];
 
   $ref = 'NULL';
@@ -263,8 +265,8 @@ function populate_admin_table($table)
   }
   // Repopulate the table
   $eventTypes = array("fine@finecomputing.com" => ['first_name' => "Valeri", 'last_name' => 'Fine'],
-                      "efinesbu@gmail.com" => ['first_name' => "Emil", 'last_name' => 'Fine']
-                      //"genepanasenko@gmail.com"  => ['first_name' => "Gene", 'last_name' => 'Panaseko']
+                      "efinesbu@gmail.com" => ['first_name' => "Emil", 'last_name' => 'Fine'],
+                      "genepanasenko@gmail.com"  => ['first_name' => "Gene", 'last_name' => 'Panaseko']
                     );
 
   foreach ($eventTypes as $mail => $person)
@@ -296,14 +298,15 @@ function get_list_of_admin_email_addr($table="admin_mail")
   $result = $conn->query($sql);
   while($row = $result->fetch_array())
   {
-    $rows[] = $row['email'];
+    $rows[] = $row;
   }
   $result->free();
   $conn->close();
 
-  $mail_list = implode(",", $rows);
-  error_log("mail_list $mail_list<br>");
-  return $mail_list;
+  //$mail_list = implode(",", $rows);
+  $m = print_r($rows, $return=true);
+  error_log("mail_list $m");
+  return $rows;
 }
 
 //____________________________________________
@@ -360,14 +363,14 @@ function save_user_comment($user_id, $firstname, $lastname, $user, $post){
   $user = array('event_type' => $event_type,
                'user_id'     => $user_id,
                'event_seq'   => $next_event_seq + 1,
-               'message'     => $post['msg'],
-               'subject'     => $post['subject'],
+               'message'     => htmlentities($post['msg']),
+               'subject'     => htmlentities($post['subject']),
                'host'        => $host,
                'ref'         => $ref
              );
   error_log("2. populating main table with $user: " . $user['user_id'] . ' '. $user['event_seq'] . "<br>");
   $last_id = populating_user_table($user);
-  return $user['user_id'];
+  return $user_id;
 
 }
 //_________________________________________________
@@ -525,10 +528,16 @@ function sendMail($user){
     fclose($fh);
     $originalsize = filesize($eLog);
     $location =  $_SERVER['REMOTE_ADDR'];
-    $msg = "We have gotten a message: '$msg' from customer: $firstname $lastname. The customer was registered as #$user_id from $location location. Please attend https://www.finecomputing.com/consulting/contact_admin.php?user_id=$user_id&adviser_id=$adviser_id to review this request";
-    $email = get_list_of_admin_email_addr();
     if ($firstname != 'test') {
-      mail($email, "Test message from $location: " . $subject, $msg);
+      $emails = get_list_of_admin_email_addr();
+      foreach($emails as  $id => $adviser) {
+        $adviserFirstName = $adviser['first_name'];
+        $adviserLastName = $adviser['last_name'];
+        $email = $adviser['email'];
+        $adviserId = $adviser['UUID'];
+        $mailBody = "Dear $adviserFirstName $adviserLastName! <br> We have gotten a message: '$msg' from customer: $firstname $lastname. The customer was registered as #$user_id http://ip-api.com/#$location $location location</a>. Please attend https://www.finecomputing.com/consulting/contact_admin.php?user_id=$user_id&adviser_id=$adviserId to review this request";
+        mail($email, "Test message from $location:" . $subject, $mailBody);
+      }
     }
 
     //
@@ -548,7 +557,7 @@ function sendMail($user){
       print "Dear $firstname $lastname! <br>";
       print "On $dt we received your new $subject.  <br>";
       print "Your comment has been forwarded to our adviser to address. <br>";
-      print "<p>You may check your request status here: <a href='contact.php?user_id=$user_id'>contact.php?user_id=$user_id'</a>. <p> Please, bookmark, and use it to track our progress.";
+      print "<p>You may check your request status here: <a href='contact.php?user_id='$user_id'>contact.php?user_id=$user_id</a>. <p> Please, bookmark, and use it to track our progress.";
       print "<hr>Truly yours, FineAssociates.  <br>";
     }
   }
