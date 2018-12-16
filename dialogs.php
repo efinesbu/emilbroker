@@ -24,7 +24,7 @@ return $msg;
 function initial_request($action  ='contact.php', $readonly=false,
                         $lastname ='Your last name..',
                         $firstname = 'Your name..',
-                        $subject ='What are looking for?',
+                        $subject ='What type of properties are you looking to purchase or sell?',
                         $msg = 'How can we help you today?')
 {
   if ($readonly) {
