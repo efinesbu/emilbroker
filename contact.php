@@ -45,6 +45,7 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
       $user_id = htmlentities($_GET['user_id']);
       $rows = get_user_attributes($user_id);
       if ($rows != NULL) {
+        echo "<h2>Please, fill the form below to check your request status<h3>";
         $msg = log_customer($user_id);
         print "$msg";
       } else {
