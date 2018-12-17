@@ -47,7 +47,8 @@ if ($subject != '' and $msg!='') {
       $adviserLastName = $adviser['last_name'];
       $email = $adviser['email'];
       $adviserId = $adviser['UUID'];
-      $mailBody = "Dear $adviserFirstName $adviserLastName! <br> We have gotten a message: '$msg' from customer: $firstname $lastname. The customer was registered as #$user_id from http://ip-api.com/#$location $location location. Please attend https://www.finecomputing.com/consulting/contact_admin.php?user_id=$user_id&adviser_id=$adviserId to review this request";
+      $locationRequest = location_lookup($location);
+      $mailBody = "Dear $adviserFirstName $adviserLastName! <br> We have gotten a message: '$msg' from customer: $firstname $lastname. The message was sent from $locationRequest location. The customer was registered as #$user_id. Please attend https://www.finecomputing.com/consulting/contact_admin.php?user_id=$user_id&adviser_id=$adviserId to review this request";
       mail($email, "Test message from $location: " . $subject, $mailBody);
     }
   }
