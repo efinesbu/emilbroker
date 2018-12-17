@@ -6,7 +6,7 @@ function log_customer($user_id, $action='contact.php'){
     <form action='$action', method='post'>
 
       <label for='user_id'>Registration Number</label><span class='error'>*
-      <input id='user_id' name='user_id' readonly value='$user_id' type='text'>"
+      <input id='user_id' name='user_id' readonly value='$user_id' type='text'>
 
       <label for='fname'>First Name</label><span class='error'>*
       <input id='fname' name='firstname' placeholder='Your name from your previous $user_id-th request...' type='text' required>

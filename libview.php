@@ -16,13 +16,14 @@ function get_user_seq($user_id, $firstname, $lastname, $event_seq=-1, $verify=TR
   $user = get_user_attributes($user_id);
   $last_name = "Customer";
   if (array_key_exists('LastName', $user)) {
-    $last_name = $user['LastName'];
+    $last_name = trim($user['LastName']);
   }
+  $first_name = "";
   if (array_key_exists('FirstName', $user)) {
-    $first_name = $user['FirstName'];
+    $first_name = trim($user['FirstName']);
   }
   $rows = NULL;
-  if ( !$verify or ($firstname == $first_name and $last_name ==$lastname))
+  if ( !$verify or (trim($firstname) == trim($first_name) and trim($last_name) == trim($lastname)))
   {
     $rows = select_user($user_id, $event_seq);
   } else {

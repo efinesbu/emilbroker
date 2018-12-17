@@ -138,6 +138,8 @@ function select_user_attr($user_id){
     }
     $result->free();
     $conn->close();
+  $m = print_r($rows, $return=true);
+  error_log("select_user_attr: return rows= $m");
   return $rows;
 }
 //____________________________________________
@@ -392,6 +394,8 @@ function adding_new_user($attribute, $value, $user_id)
     $result->free();
   }
   error_log("user_id  $user_id<br>");
+  $attribute = trim($attribute);
+  $value = trim($value);  
   // Adding the new collator_get_attribute
   $sql =  "INSERT INTO $table (user_id, attribute_name, attribute_value)
            VALUES ($user_id, '$attribute', '$value')";
@@ -503,7 +507,9 @@ function create_table($table='', $schema='')
   $conn->commit();
   $conn->close();
 }
-
+function location_lookup($location){
+  return "https://www.ip-tracker.org/locator/ip-lookup.php?ip=$location";
+}
 //_______________________________________________________________
 function sendMail($user){
   $subject   = htmlentities($user["subject"]);
@@ -535,7 +541,8 @@ function sendMail($user){
         $adviserLastName = $adviser['last_name'];
         $email = $adviser['email'];
         $adviserId = $adviser['UUID'];
-        $mailBody = "Dear $adviserFirstName $adviserLastName! <br> We have gotten a message: '$msg' from customer: $firstname $lastname. The customer was registered as #$user_id http://ip-api.com/#$location $location location</a>. Please attend https://www.finecomputing.com/consulting/contact_admin.php?user_id=$user_id&adviser_id=$adviserId to review this request";
+        $locationRequest = location_lookup($location);
+        $mailBody = "Dear $adviserFirstName $adviserLastName! <br> We have gotten a message: '$msg' from customer: $firstname $lastname. The message was sent from $locationRequest location. The customer was registered as #$user_id. Please attend https://www.finecomputing.com/consulting/contact_admin.php?user_id=$user_id&adviser_id=$adviserId to review this request";
         mail($email, "Test message from $location:" . $subject, $mailBody);
       }
     }
