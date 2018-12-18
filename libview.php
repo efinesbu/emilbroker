@@ -55,8 +55,8 @@ function show_user_seq($user_id, $firstname, $lastname, $main_row){
         <p>Dear $firstname $lastname!
         <p>On $reg_date we received your request to assist you on<br>
         <center><cite>Subject: ' . . . $subject . . . '</cite></center>
-        <p>Our experts are analyzing how we can meet your order.
-        We are appologize, but at this time they have not provided any response yet.
+        <p>Our experts are analyzing your request. We will be getting back to you shortly.
+
         <p>The update of your order will be posted <a href='contact.php?user_id=$user_id'>here</a>
         <p>Please, visit us later.
         <p>Truly yours, FineAssociates.
