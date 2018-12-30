@@ -8,16 +8,9 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 <script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_files/_ate.config_resp"></script>
 -->
 <link type="text/css" rel="stylesheet" href="broker.css" />
-<title>
-About FineAssociates and NYC Off-Market Real Estate
-</title>
+<title>About FineAssociates and NYC Off-Market Real Estate</title>
 </head>
 <body class="home">
-
-<div class="topnav">
-	<a class="active" href="http://realestate.finecomputing.com>Home</a>
-	<a href="contact.php"></a>
-</div>
 
 <div class="center">
 	<h2>About Private NYC <a title="Off-Market Properties Aren't Listed" href="aboutoffmarket.php">Off-Market</a> Real Estate (OMRE) Advisors</h2>
