@@ -2,7 +2,7 @@
 
 <head>
 
-<title>PHP mail() test</title>
+<title>New-York Off-Market Real Estate Advisors</title>
 <!--
 See: https://p10.secure.webhosting.luminate.com/phpmailsetup?ssc=us1
 -->
@@ -48,7 +48,7 @@ if ($subject != '' and $msg!='') {
       $email = $adviser['email'];
       $adviserId = $adviser['UUID'];
       $locationRequest = location_lookup($location);
-      $mailBody = "Dear $adviserFirstName $adviserLastName! <br> We have gotten a message: '$msg' from customer: $firstname $lastname. The message was sent from $locationRequest location. The customer was registered as #$user_id. Please attend https://www.finecomputing.com/consulting/contact_admin.php?user_id=$user_id&adviser_id=$adviserId to review this request";
+      $mailBody = "Dear $adviserFirstName $adviserLastName! <br> We have gotten a message: '$msg' from customer: $firstname $lastname. The message was sent from $locationRequest location. The customer was registered as #$user_id. Please attend $homeAddress/contact_admin.php?user_id=$user_id&adviser_id=$adviserId to review this request";
       mail($email, "Test message from $location: " . $subject, $mailBody);
     }
   }

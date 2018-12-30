@@ -17,14 +17,12 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 <meta name="keywords" content="property, market,upper,east,west,south,east,Upper East Side,Upper West side,Tribeca, FIDI,">
 <meta name="keywords" content="Midtown, Midtown Manhattan, Chelsea,Hudson Yards,Hudson,Yards,Central, park,lower">
 <meta name="keywords" content="Central, park,NOLO, development,for sale, residential, properties, investment, sale, buy, foreclosures,public">
-<title>
-  Private NYC OMRE Advisors
-</title>
+<title>International New-York Off-Market Real Estate Advisors</title>
 </head>
 <body class="home">
 
 <div class="topnav">
-	<a class="active" href="http://consulting.finecomputing.com">Home</a>
+	<a class="active" href="http://realestate.finecomputing.com">Home</a>
 	<a href="https://finecomputing.com/contact"></a>
 	<a href="https://finecomputing.com/about"></a>
 </div>
@@ -37,7 +35,7 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
       <h4> Under Construction! </h4>
 </div>
 <ul class="bottomnav">
-  <li><a class="active" href="http://consulting.finecomputing.com">Home</a>
+  <li><a class="active" href="http://realestate.finecomputing.com">Home</a>
   <li><a href="contact.php">Contact Us</a>
 	<li><a href="about.php">About</a>
 </ul>

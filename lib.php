@@ -1,5 +1,6 @@
 <?php
 ini_set('display_errors', 1);
+$homeAddress ='https://www.finecomputing.com/consulting/realestate';
 //____________________________________________
 function consulting_server()
 {
@@ -395,7 +396,7 @@ function adding_new_user($attribute, $value, $user_id)
   }
   error_log("user_id  $user_id<br>");
   $attribute = trim($attribute);
-  $value = trim($value);  
+  $value = trim($value);
   // Adding the new collator_get_attribute
   $sql =  "INSERT INTO $table (user_id, attribute_name, attribute_value)
            VALUES ($user_id, '$attribute', '$value')";
