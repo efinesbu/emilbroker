@@ -11,10 +11,10 @@ See: https://p10.secure.webhosting.luminate.com/phpmailsetup?ssc=us1
 <body>
 
 <?php
-$subject   = htmlentities($_POST["subject"]);
-$msg       = htmlentities($_POST["msg"]);
-$firstname = htmlentities($_POST["firstname"]);
-$lastname  = htmlentities($_POST["lastname"]);
+$subject   = htmlentities(trim($_POST["subject"]));
+$msg       = htmlentities(trim($_POST["msg"]));
+$firstname = htmlentities(trim($_POST["firstname"]));
+$lastname  = htmlentities(trim($_POST["lastname"]));
 if ($lastname == ''  and $firstname == '') {
   $firstname = "Customer";
 }
