@@ -8,7 +8,7 @@
 <?php  require 'site_meta.php'; ?>
 <title>Privacy Policy &copy;FineAssociates New-York Off-Market Real Estate Advisors</title>
 </head>
-<body class="home">
+<body class="home"><?php  require 'google_tag.php'; ?>
 
 <div class="center">
 	<h2>Privacy Policy</h2>

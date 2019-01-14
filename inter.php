@@ -19,7 +19,7 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 <meta name="keywords" content="Central, park,NOLO, development,for sale, residential, properties, investment, sale, buy, foreclosures,public">
 <title>International New-York Off-Market Real Estate Advisors</title>
 </head>
-<body class="home">
+<body class="home"><?php  require 'google_tag.php'; ?>
 
 <div class="topnav">
 	<a class="active" href="http://realestate.finecomputing.com">Home</a>

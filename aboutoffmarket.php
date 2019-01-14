@@ -12,7 +12,7 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 <link type="text/css" rel="stylesheet" href="broker.css" />
 <title>About NYC Real Estate Off-Market</title>
 </head>
-<body class="home">
+<body class="home"><?php  require 'google_tag.php'; ?>
 
 <div class="topnav">
 	<a class="active" href="http://realestate.finecomputing.com>Home</a>

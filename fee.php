@@ -13,7 +13,7 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 <title>  Private NYC OMRE Advisors </title>
 <title>Fee FineAssociates and NYC Off-Market Real Estate </title>
 </head>
-<body class="home">
+<body class="home"><?php  require 'google_tag.php'; ?>
 
 <div class="center">
 	<h2>Our Fee</h2>
