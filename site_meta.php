@@ -1,6 +1,7 @@
 <?php
 print <<<END
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="robots" content="all"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="description"><meta name="author">
 <meta name="keywords" content="'off-market real estate new-york'">
