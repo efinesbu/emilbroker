@@ -11,7 +11,8 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="description"><meta name="author">
+<meta name="description" content="New-York Off-Market Real Estate Experts">
+<meta name="author">
 <meta name="keywords" content="real,estate,new-york,usa,united,states,america,manhattan,brooklyn,long island,Queens">
 <meta name="keywords" content="home,apartment,co-op,condo,listing,new,new listing,new development,development,">
 <meta name="keywords" content="property, market,upper,east,west,south,east,Upper East Side,Upper West side,Tribeca, FIDI,">
