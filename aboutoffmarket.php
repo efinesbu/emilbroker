@@ -26,17 +26,34 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
 </div>
 <div class="main">
 <center>
-<a title="An Inside Look At Off-Market Real Estate Investments" href="https://www.forbes.com/sites/forbesrealestatecouncil/2017/12/28/an-inside-look-at-off-market-real-estate-investments/#5761d84757d2">
-<cite>
-  . . . If off-market properties aren't listed, how can investors locate these deals? . . .
-</cite>
-</a>
-<br>
-<a title='For Your Ears Only' href='https://www.nytimes.com/2013/09/22/realestate/real-estate-deals-that-have-never-been-listed.html'>
-	<cite>
-		 . . . Off-market deals, known as whisper listings, have long been the purview of the ultra-high-end market . . .
-	</cite>
-</a>
+	<table>
+		<tr><td><a href='http://www.forbes.com'><b>Forbes:</b><a></td>
+				<td>
+				<a title="An Inside Look At Off-Market Real Estate Investments" href="https://www.forbes.com/sites/forbesrealestatecouncil/2017/12/28/an-inside-look-at-off-market-real-estate-investments/#5761d84757d2">
+					<cite>
+  					. . . If off-market properties aren't listed, how can investors locate these deals? . . .
+					</cite>
+				</a>
+	<td></tr>
+	<tr><td><a href='http://www.nytimes.com'><b>The New York Times:</b></td>
+		  <td>
+			<a title='For Your Ears Only' href='https://www.nytimes.com/2013/09/22/realestate/real-estate-deals-that-have-never-been-listed.html'>
+				<cite>
+					 . . . Off-market deals, known as whisper listings, have long been the purview of the ultra-high-end market . . .
+				</cite>
+			</a>
+	</td></tr>
+	<tr><td><a href='http://newyorklifestylesmagazine.com/'><b>New York Lifestyles:</b></td>
+		  <td>
+			<a title='Off-Market Real Estate' href='http://newyorklifestylesmagazine.com/archives/8_15/articles/offmarket.html'>
+				<cite>
+					 . . . The main reason for the off-market is privacy – sellers don’t want their business advertised all over the world . . .
+				</cite>
+			</a>
+	</td></tr>
+</table>
+</center>
+
 <?php require 'our_team.php'?>
 <ul class="bottomnav">
 	<li><a class="active" href="http://realestate.finecomputing.com">Home</a>
