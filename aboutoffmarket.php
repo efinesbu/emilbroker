@@ -31,7 +31,12 @@ script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_fi
   . . . If off-market properties aren't listed, how can investors locate these deals? . . .
 </cite>
 </a>
-</center>
+<br>
+<a title='For Your Ears Only' href='https://www.nytimes.com/2013/09/22/realestate/real-estate-deals-that-have-never-been-listed.html'>
+	<cite>
+		 . . . Off-market deals, known as whisper listings, have long been the purview of the ultra-high-end market . . .
+	</cite>
+</a>
 <?php require 'our_team.php'?>
 <ul class="bottomnav">
 	<li><a class="active" href="http://realestate.finecomputing.com">Home</a>
