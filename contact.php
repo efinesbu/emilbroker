@@ -1,27 +1,23 @@
 <!DOCTYPE html>
 <!-- saved from url=(0032)https://finecomputing.com/broker -->
-<html><head id="ctl00_head1"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<?php ini_set('display_errors', 1);
-      require 'google_analytic.php';
-      require 'dialogs.php';
-?>
-<link type="text/css" rel="stylesheet" href="broker.css" />
+<html>
+  <head id="ctl00_head1">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <?php ini_set('display_errors', 1);
+        require 'google_analytic.php';
+        require 'dialogs.php';
+  ?>
+  <link type="text/css" rel="stylesheet" href="broker.css" />
 
-<!--
-script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_files/300lo.json"></script>
-<script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_files/_ate.config_resp"></script>
+  <!--
+  script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_files/300lo.json"></script>
+  <script type="text/javascript" src="Rutenberg%20%C2%B7%20The%20Smart%20Brokers_files/_ate.config_resp"></script>
 
--->
-<?php  require 'site_meta.php'; ?>
-<title>Contact New-York Off-Market Real Estate Advisors</title>
+  -->
+  <?php  require 'site_meta.php'; ?>
+  <title>Contact New-York Off-Market Real Estate Advisors</title>
 </head>
 <body class="home"><?php  require 'google_tag.php'; ?>
-
-<div class="topnav">
-	<a class="active" href="http://realestate.finecomputing.com">Home</a>
-	<a href="contact.php"></a>
-	<a href="about.php"></a>
-</div>
 
 <div class="center">
 	<h2>Contact Private NYC <a title="Off-Market Properties Aren't Listed" href="aboutoffmarket.php">Off-Market</a>
